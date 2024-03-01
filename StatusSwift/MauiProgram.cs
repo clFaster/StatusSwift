@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using StatusSwift.ViewModel;
 
 namespace StatusSwift;
 public static class MauiProgram
@@ -25,6 +26,9 @@ public static class MauiProgram
 
     private static void ConfigureServices(IServiceCollection services)
     {
+        services.AddSingleton<MainPage>();
+        services.AddSingleton<MainViewModel>();
+
         services.AddLogging(builder =>
         {
             builder.AddConsole();

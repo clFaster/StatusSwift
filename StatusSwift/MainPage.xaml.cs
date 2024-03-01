@@ -1,24 +1,23 @@
-﻿namespace StatusSwift;
+﻿using StatusSwift.ViewModel;
+
+namespace StatusSwift;
 
 public partial class MainPage : ContentPage
 {
-    int count = 0;
-
-    public MainPage()
+    public MainPage(MainViewModel mainViewModel)
     {
+        BindingContext = mainViewModel;
         InitializeComponent();
     }
 
-    private void OnCounterClicked(object sender, EventArgs e)
+    private void ToggleAutoStartActive(object? sender, ToggledEventArgs e)
     {
-        count++;
+        throw new NotImplementedException();
+    }
 
-        if (count == 1)
-            CounterBtn.Text = $"Clicked {count} time";
-        else
-            CounterBtn.Text = $"Clicked {count} times";
-
-        SemanticScreenReader.Announce(CounterBtn.Text);
+    private void ToggleAlternativeModeActive(object? sender, ToggledEventArgs e)
+    {
+        throw new NotImplementedException();
     }
 }
 
