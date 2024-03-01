@@ -38,6 +38,21 @@ public partial class App() : Application
         
         MainPage = new AppShell();
     }
+
+    protected override void OnStart()
+    {
+        base.OnStart();
+    }
+
+    protected override void OnResume()
+    {
+        base.OnResume();
+    }
+
+    protected override void OnSleep()
+    {
+        base.OnSleep();
+    }
 }
 
 public class YourJobClass(ILogger<App> logger) : IJob
