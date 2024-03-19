@@ -24,9 +24,10 @@ jobs:
       run: dotnet restore
 
     - name: Publish
-      run: dotnet publish -f net8.0-windows10.0.19041.0 -c Release -p:RuntimeIdentifierOverride=win10-x64
+      run: dotnet publish -f net8.0-windows10.0.19041.0 -c Release -p:RuntimeIdentifierOverride=win10-x64 -o ./published-artifact
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
       with:
-        path: bin/Release
+        name: published-artifact
+        path: ./published-artifact
