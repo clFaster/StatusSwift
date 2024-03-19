@@ -2,7 +2,7 @@
 
 namespace StatusSwift;
 
-public partial class MainPage : ContentPage
+public partial class MainPage
 {
     public MainPage(MainViewModel mainViewModel)
     {

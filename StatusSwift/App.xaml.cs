@@ -63,7 +63,7 @@ public class YourJobClass : IJob
     public async Task Execute(IJobExecutionContext context)
     {
         // Your job logic goes here
-        _logger = context.JobDetail.JobDataMap.Get("logger");
-        _logger.LogInformation("Job is running...");
+        //_logger = context.JobDetail.JobDataMap.Get("logger");
+        //_logger.LogInformation("Job is running...");
     }
 }
