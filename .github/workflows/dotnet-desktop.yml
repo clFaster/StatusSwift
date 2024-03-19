@@ -1,0 +1,30 @@
+name: .NET Core Desktop
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    env:
+      Solution_Name: StatusSwift.sln
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+
+    - name: Restore the application
+      run: dotnet restore
+
+    - name: Publish
+      run: dotnet publish -f net8.0-windows10.0.19041.0 -c Release -p:RuntimeIdentifierOverride=win10-x64
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3
