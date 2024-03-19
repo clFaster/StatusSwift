@@ -11,10 +11,9 @@ public partial class App() : Application
     
     public App(ILogger<App> logger) : this()
     {
-        _logger = logger;
         InitializeComponent();
 
-        _logger.LogInformation("App is starting...");
+        logger.LogInformation("App is starting...");
         
         // Initialize scheduler
         scheduler = new StdSchedulerFactory().GetScheduler().Result;
@@ -25,11 +24,13 @@ public partial class App() : Application
             .WithIdentity("yourJobName", "group1")
             .Build();
 
+        job.JobDataMap["logger"] = logger;
+
         var trigger = TriggerBuilder.Create()
             .WithIdentity("yourTriggerName", "group1")
             .StartNow()
             .WithSimpleSchedule(x => x
-                .WithIntervalInSeconds(10)  // Set your desired interval
+                .WithIntervalInSeconds(1)  // Set your desired interval
                 .RepeatForever())
             .Build();
 
@@ -55,11 +56,14 @@ public partial class App() : Application
     }
 }
 
-public class YourJobClass(ILogger<App> logger) : IJob
+public class YourJobClass : IJob
 {
+    private ILogger<YourJobClass> _logger;
+
     public async Task Execute(IJobExecutionContext context)
     {
         // Your job logic goes here
-        logger.LogInformation("Job is running...");
+        _logger = context.JobDetail.JobDataMap.Get("logger");
+        _logger.LogInformation("Job is running...");
     }
 }
