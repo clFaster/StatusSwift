@@ -1,9 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
-using Quartz.Logging;
-using SharpHook;
-using StatusSwift.BO;
 using StatusSwift.Services;
 
 namespace StatusSwift.ViewModel;

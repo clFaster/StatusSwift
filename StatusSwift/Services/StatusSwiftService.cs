@@ -2,7 +2,6 @@
 using SharpHook;
 using StatusSwift.BO;
 using StatusSwift.ViewModel;
-using System.Threading;
 
 namespace StatusSwift.Services;
 
@@ -15,16 +14,15 @@ public class StatusSwiftService(ILogger<MainViewModel> logger, IEventSimulator s
     {
         if (statusSwiftActive)
         {
-            logger.LogInformation($"Start Timer");
+            logger.LogInformation("Start Timer");
             _cancellationTokenSource = new CancellationTokenSource();
 
             var interval = GetRandomSeconds();
-
             _timer = new Timer(DoWork, _cancellationTokenSource.Token, TimeSpan.Zero, TimeSpan.FromSeconds(interval));
         }
         else
         {
-            logger.LogInformation($"Stop Timer");
+            logger.LogInformation("Stop Timer");
             _timer?.Dispose();
             _cancellationTokenSource?.Dispose();
             _timer = null;
@@ -38,12 +36,12 @@ public class StatusSwiftService(ILogger<MainViewModel> logger, IEventSimulator s
             return;
         }
 
-
         var interval = GetRandomSeconds();
-
         logger.LogInformation("Move mouse, and schedule again in {interval} seconds.", interval);
 
-        simulator.SimulateMouseMovementRelative(10, 0);
+        // Use Mouse Wheel, because mouse move is buggy at the moment
+        simulator.SimulateMouseWheel(120);
+        simulator.SimulateMouseWheel(-120);
 
         _timer?.Change(TimeSpan.FromSeconds(interval), TimeSpan.FromSeconds(interval));
     }
