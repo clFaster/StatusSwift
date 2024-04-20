@@ -4,37 +4,13 @@
              x:Class="StatusSwift.MainPage"
              xmlns:viewmodel="clr-namespace:StatusSwift.ViewModel"
              x:DataType="viewmodel:MainViewModel">
-
-
+    
     <StackLayout Padding="20">
-
         <!-- Big Button for Enable/Disable -->
         <Button Text="{Binding ButtonText}"
                 FontSize="35"
                 Command="{Binding ToggleStatusSwiftActiveCommand}"
                 HorizontalOptions="CenterAndExpand"
                 VerticalOptions="CenterAndExpand"/>
-
-
-        <!-- Switch for AutoStart -->
-        <StackLayout Orientation="Horizontal" HorizontalOptions="End">
-            <Label Text="AutoStart"
-                   FontSize="18"
-                   VerticalOptions="CenterAndExpand" 
-                   Padding="10"/>
-            <Switch x:Name="AutoStartSwitch"
-                    Toggled="ToggleAutoStartActive"/>
-        </StackLayout>
-
-        <!-- Switch for Alternative Mode -->
-        <StackLayout Orientation="Horizontal" HorizontalOptions="End">
-            <Label Text="Alternative Mode"
-                   FontSize="18"
-                   VerticalOptions="CenterAndExpand" 
-                   Padding="10"/>
-            <Switch x:Name="AlternativeModeSwitch"
-                    Toggled="ToggleAlternativeModeActive"/>
-        </StackLayout>
-
     </StackLayout>
 </ContentPage>

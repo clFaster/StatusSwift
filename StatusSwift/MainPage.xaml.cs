@@ -9,15 +9,5 @@ public partial class MainPage
         BindingContext = mainViewModel;
         InitializeComponent();
     }
-
-    private void ToggleAutoStartActive(object? sender, ToggledEventArgs e)
-    {
-        throw new NotImplementedException();
-    }
-
-    private void ToggleAlternativeModeActive(object? sender, ToggledEventArgs e)
-    {
-        throw new NotImplementedException();
-    }
 }
 
