@@ -2,6 +2,7 @@
 using SharpHook;
 using StatusSwift.BO;
 using StatusSwift.ViewModel;
+using System;
 
 namespace StatusSwift.Services;
 
@@ -42,6 +43,14 @@ public class StatusSwiftService(ILogger<MainViewModel> logger, IEventSimulator s
         // Use Mouse Wheel, because mouse move is buggy at the moment
         simulator.SimulateMouseWheel(120);
         simulator.SimulateMouseWheel(-120);
+
+        // Simulate Mouse Move
+
+        short x = 10;
+        short y = 10;
+
+        simulator.SimulateMouseMovementRelative(x, y);
+        simulator.SimulateMouseMovementRelative((short)-x, (short)-y);
 
         _timer?.Change(TimeSpan.FromSeconds(interval), TimeSpan.FromSeconds(interval));
     }
