@@ -1,6 +1,4 @@
 ﻿using Microsoft.Extensions.Logging;
-using Quartz;
-using Quartz.Impl;
 
 namespace StatusSwift;
 
@@ -11,21 +9,12 @@ public partial class App() : Application
         InitializeComponent();
 
         logger.LogInformation("App is starting...");  
-        MainPage = new AppShell();
     }
 
-    protected override void OnStart()
-    {
-        base.OnStart();
-    }
-
-    protected override void OnResume()
-    {
-        base.OnResume();
-    }
-
-    protected override void OnSleep()
-    {
-        base.OnSleep();
-    }
+    protected override Window CreateWindow(IActivationState? activationState) =>
+        new(new AppShell())
+        {
+            Width = 500,
+            Height = 300
+        };
 }
