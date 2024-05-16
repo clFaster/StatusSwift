@@ -9,14 +9,15 @@
     <StackLayout Padding="20">
         <!-- Big Button for Enable/Disable -->
         <tb:TaskbarIcon
-            IconSource="red.ico"
+            IconSource="Resources/AppIcon/appicon.ico"
             x:Name="TrayIcon"
-            LeftClickCommand="{Binding ShowHideWindowCommand}"
+            LeftClickCommand="{Binding ShowWindowCommand}"
             NoLeftClickDelay="True"
         >
             <FlyoutBase.ContextFlyout>
                 <MenuFlyout>
-                    <MenuFlyoutItem Command="{Binding ShowHideWindowCommand}" Text="Show/Hide Window" />
+                    <MenuFlyoutItem Command="{Binding ToggleStatusSwiftActiveCommand}" Text="{Binding ButtonText}" />
+                    <MenuFlyoutItem Command="{Binding ShowWindowCommand}" Text="{Binding WindowText}" />
                     <MenuFlyoutSeparator />
                     <MenuFlyoutItem Command="{Binding ExitApplicationCommand}" Text="Exit" />
                 </MenuFlyout>

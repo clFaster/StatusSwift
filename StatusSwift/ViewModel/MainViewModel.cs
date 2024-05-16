@@ -11,38 +11,31 @@ public partial class MainViewModel(ILogger<MainViewModel> logger, IStatusSwiftSe
     private static bool _statusSwiftActive;
 
     [ObservableProperty]
-    private string _buttonText = _statusSwiftActive ? "Disable StatusSwift" : "Enable StatusSwift";
+    private string _buttonText = "Enable StatusSwift";
+
+    [ObservableProperty]
+    private string _windowText = "Show Window";
 
     [RelayCommand]
-    private void ToggleStatusSwiftActive()
+    public void ToggleStatusSwiftActive()
     {
         _statusSwiftActive = !_statusSwiftActive;
         ButtonText = _statusSwiftActive ? "Disable StatusSwift" : "Enable StatusSwift";
         logger.LogInformation("State switched to: {ButtonText}", ButtonText);
         statusSwiftService.ToggleTimer(_statusSwiftActive);
     }
-    
-    
-    private bool IsWindowVisible { get; set; } = true;
-    
+
     [RelayCommand]
-    public void ShowHideWindow()
+    public void ShowWindow()
     {
         var window = Application.Current?.MainPage?.Window;
         if (window == null)
         {
             return;
         }
-
-        if (IsWindowVisible)
-        {
-            window.Hide();
-        }
-        else
-        {
-            window.Show();
-        }
-        IsWindowVisible = !IsWindowVisible;
+        window.Show();
+        window.Activate();
+        WindowText = "Show Window";
     }
 
     [RelayCommand]
