@@ -1,5 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using H.NotifyIcon;
+using Microsoft.Extensions.Logging;
 using SharpHook;
+using SkiaSharp.Views.Maui.Controls.Hosting;
 using StatusSwift.BO;
 using StatusSwift.Services;
 using StatusSwift.ViewModel;
@@ -12,6 +14,8 @@ public static class MauiProgram
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
+            .UseSkiaSharp()
+            .UseNotifyIcon()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

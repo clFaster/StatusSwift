@@ -1,4 +1,6 @@
-﻿using Microsoft.UI.Xaml;
+﻿using H.NotifyIcon;
+using Microsoft.Maui.Platform;
+using Microsoft.UI.Windowing;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -16,6 +18,28 @@ public partial class App : MauiWinUIApplication
     public App()
     {
         this.InitializeComponent();
+        
+        Microsoft.Maui.Handlers.WindowHandler.Mapper.AppendToMapping(nameof(IWindow), (handler, view) =>
+        {
+            var nativeWindow = handler.PlatformView;
+            var appWindow = nativeWindow.GetAppWindow();
+            if (appWindow is not null)
+            {
+                appWindow.Changed += (sender, args) =>
+                {
+                    if (appWindow.Presenter is not OverlappedPresenter overlappedPresenter) return;
+                    if (!args.DidPresenterChange ||
+                        overlappedPresenter.State != OverlappedPresenterState.Minimized) return;
+                    
+                    var window = Microsoft.Maui.Controls.Application.Current?.MainPage?.Window;
+                    if (window == null)
+                    {
+                        return;
+                    }
+                    window.Hide();
+                };
+            }
+        });
     }
 
     protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();

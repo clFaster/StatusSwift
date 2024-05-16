@@ -3,10 +3,27 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="StatusSwift.MainPage"
              xmlns:viewmodel="clr-namespace:StatusSwift.ViewModel"
+             xmlns:tb="https://notifyicon.com/"
              x:DataType="viewmodel:MainViewModel">
     
     <StackLayout Padding="20">
         <!-- Big Button for Enable/Disable -->
+        <tb:TaskbarIcon
+            IconSource="Resources/AppIcon/appicon.ico"
+            x:Name="TrayIcon"
+            LeftClickCommand="{Binding ShowWindowCommand}"
+            NoLeftClickDelay="True"
+        >
+            <FlyoutBase.ContextFlyout>
+                <MenuFlyout>
+                    <MenuFlyoutItem Command="{Binding ToggleStatusSwiftActiveCommand}" Text="{Binding ButtonText}" />
+                    <MenuFlyoutItem Command="{Binding ShowWindowCommand}" Text="{Binding WindowText}" />
+                    <MenuFlyoutSeparator />
+                    <MenuFlyoutItem Command="{Binding ExitApplicationCommand}" Text="Exit" />
+                </MenuFlyout>
+            </FlyoutBase.ContextFlyout>
+        </tb:TaskbarIcon>
+        
         <Button Text="{Binding ButtonText}"
                 FontSize="35"
                 Command="{Binding ToggleStatusSwiftActiveCommand}"
