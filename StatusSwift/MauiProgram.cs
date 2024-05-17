@@ -43,6 +43,6 @@ public static class MauiProgram
         services.AddSingleton<MainViewModel>();
         
         services.AddSingleton<IStatusSwiftService, StatusSwiftService>();
-        services.AddSingleton<IEventSimulator, EventSimulator>();
+        services.AddTransient<IEventSimulator, EventSimulator>();
     }
 }
