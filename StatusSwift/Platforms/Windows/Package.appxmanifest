@@ -6,9 +6,9 @@
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
   IgnorableNamespaces="uap rescap">
 
-  <Identity Name="maui-package-name-placeholder" Publisher="CN=User Name" Version="0.0.0.0" />
+  <Identity Name="3978MoritzReis.StatusSwift" Publisher="CN=6CC9D2F4-7FD0-4B42-84CA-53C113FA4D55" Version="1.1.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="22B9DAD2-19AF-4EE2-BEC4-C4F755B36341" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="0d2d6784-8575-4f5b-aac5-feab541c827e" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>$placeholder$</DisplayName>
