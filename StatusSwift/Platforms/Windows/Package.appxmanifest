@@ -11,8 +11,8 @@
   <mp:PhoneIdentity PhoneProductId="0d2d6784-8575-4f5b-aac5-feab541c827e" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>$placeholder$</DisplayName>
-    <PublisherDisplayName>User Name</PublisherDisplayName>
+    <DisplayName>StatusSwift</DisplayName>
+    <PublisherDisplayName>Moritz Reis</PublisherDisplayName>
     <Logo>$placeholder$.png</Logo>
   </Properties>
 
