@@ -53,12 +53,11 @@
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="H.NotifyIcon.Maui" Version="2.0.131" />
-		<PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.0-preview.1.24080.9" />
+		<PackageReference Update="Microsoft.Maui.Controls" Version="8.0.40" />
+		<PackageReference Update="Microsoft.Maui.Controls.Compatibility" Version="8.0.40" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="9.0.0-preview.1.24080.9" />
-		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.40" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.40" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
-		<PackageReference Include="SharpHook" Version="5.3.4" />
+		<PackageReference Include="SharpHook" Version="5.3.6" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Update="Resources\AppIcon\appicon.ico">
