@@ -33,13 +33,13 @@ jobs:
       run: dotnet workload install maui
 
     - name: .NET - Restore
-      run: dotnet restore --runtime win-x64
+      run: dotnet restore
 
     - name: .NET - Build
-      run: dotnet build -f net8.0-windows10.0.19041.0 -c Release -p:RuntimeIdentifierOverride=win10-x64 --no-restore
+      run: dotnet build -f net8.0-windows10.0.19041.0 -c Release --no-restore
 
     - name: .NET - Publish
-      run: dotnet publish -f net8.0-windows10.0.19041.0 -c Release /p:RuntimeIdentifierOverride=win10-x64 /p:GenerateAppxPackageOnBuild=true -o ./published-artifact --no-build
+      run: dotnet publish -f net8.0-windows10.0.19041.0 -c Release /p:GenerateAppxPackageOnBuild=true -o ./published-artifact --no-build
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v4
