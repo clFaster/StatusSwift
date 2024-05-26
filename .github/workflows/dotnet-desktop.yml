@@ -33,10 +33,9 @@ jobs:
       run: dotnet workload install maui
 
     - name: .NET - Publish
-      run: dotnet publish ${{env.ProjectName}} -f net8.0-windows10.0.19041.0 -c Release /p:GenerateAppxPackageOnBuild=true -o ./published-artifact
+      run: dotnet publish ${{env.ProjectName}} -f net8.0-windows10.0.19041.0 -c Release /p:GenerateAppxPackageOnBuild=true
 
-    - name: Upload build artifacts
+    - name: Upload Build Artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: published-artifact
-        path: ./published-artifact
+        path: .\**\AppPackages\**\*.*
