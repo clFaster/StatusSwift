@@ -28,8 +28,8 @@
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="$placeholder$"
-        Description="$placeholder$"
+        DisplayName="Status Swift"
+        Description="StatusSwift keeps your status in chat applications like Discord and Microsoft Teams set to &quot;available,&quot; preventing automatic changes to &quot;away&quot; due to inactivity."
         Square150x150Logo="$placeholder$.png"
         Square44x44Logo="$placeholder$.png"
         BackgroundColor="transparent">
