@@ -30,7 +30,7 @@ jobs:
         dotnet-version: 8.0.x
 
     - name: Install MAUI workload
-      run: dotnet workload install maui
+      run: dotnet workload install maui-desktop
 
     - name: .NET - Publish
       run: dotnet publish ${{env.ProjectName}} -c Release -f net8.0-windows10.0.19041.0 /p:GenerateAppxPackageOnBuild=true
