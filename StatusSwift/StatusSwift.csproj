@@ -51,6 +51,59 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Content Include="Resources\Images\largetile.scale-100.png" />
+	  <Content Include="Resources\Images\largetile.scale-125.png" />
+	  <Content Include="Resources\Images\largetile.scale-150.png" />
+	  <Content Include="Resources\Images\largetile.scale-200.png" />
+	  <Content Include="Resources\Images\largetile.scale-400.png" />
+	  <Content Include="Resources\Images\logo.scale-100.png" />
+	  <Content Include="Resources\Images\logo.scale-125.png" />
+	  <Content Include="Resources\Images\logo.scale-150.png" />
+	  <Content Include="Resources\Images\logo.scale-200.png" />
+	  <Content Include="Resources\Images\logo.scale-400.png" />
+	  <Content Include="Resources\Images\logo.targetsize-16.png" />
+	  <Content Include="Resources\Images\logo.targetsize-16_altform-lightunplated.png" />
+	  <Content Include="Resources\Images\logo.targetsize-16_altform-unplated.png" />
+	  <Content Include="Resources\Images\logo.targetsize-24.png" />
+	  <Content Include="Resources\Images\logo.targetsize-24_altform-lightunplated.png" />
+	  <Content Include="Resources\Images\logo.targetsize-24_altform-unplated.png" />
+	  <Content Include="Resources\Images\logo.targetsize-256.png" />
+	  <Content Include="Resources\Images\logo.targetsize-256_altform-lightunplated.png" />
+	  <Content Include="Resources\Images\logo.targetsize-256_altform-unplated.png" />
+	  <Content Include="Resources\Images\logo.targetsize-32.png" />
+	  <Content Include="Resources\Images\logo.targetsize-32_altform-lightunplated.png" />
+	  <Content Include="Resources\Images\logo.targetsize-32_altform-unplated.png" />
+	  <Content Include="Resources\Images\logo.targetsize-48.png" />
+	  <Content Include="Resources\Images\logo.targetsize-48_altform-lightunplated.png" />
+	  <Content Include="Resources\Images\logo.targetsize-48_altform-unplated.png" />
+	  <Content Include="Resources\Images\mediumtile.scale-100.png" />
+	  <Content Include="Resources\Images\mediumtile.scale-125.png" />
+	  <Content Include="Resources\Images\mediumtile.scale-150.png" />
+	  <Content Include="Resources\Images\mediumtile.scale-200.png" />
+	  <Content Include="Resources\Images\mediumtile.scale-400.png" />
+	  <Content Include="Resources\Images\package.scale-100.png" />
+	  <Content Include="Resources\Images\package.scale-125.png" />
+	  <Content Include="Resources\Images\package.scale-150.png" />
+	  <Content Include="Resources\Images\package.scale-200.png" />
+	  <Content Include="Resources\Images\package.scale-400.png" />
+	  <Content Include="Resources\Images\smalltile.scale-100.png" />
+	  <Content Include="Resources\Images\smalltile.scale-125.png" />
+	  <Content Include="Resources\Images\smalltile.scale-150.png" />
+	  <Content Include="Resources\Images\smalltile.scale-200.png" />
+	  <Content Include="Resources\Images\smalltile.scale-400.png" />
+	  <Content Include="Resources\Images\splashscreen.scale-100.png" />
+	  <Content Include="Resources\Images\splashscreen.scale-125.png" />
+	  <Content Include="Resources\Images\splashscreen.scale-150.png" />
+	  <Content Include="Resources\Images\splashscreen.scale-200.png" />
+	  <Content Include="Resources\Images\splashscreen.scale-400.png" />
+	  <Content Include="Resources\Images\widetile.scale-100.png" />
+	  <Content Include="Resources\Images\widetile.scale-125.png" />
+	  <Content Include="Resources\Images\widetile.scale-150.png" />
+	  <Content Include="Resources\Images\widetile.scale-200.png" />
+	  <Content Include="Resources\Images\widetile.scale-400.png" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="H.NotifyIcon.Maui" Version="2.0.131" />
 		<PackageReference Update="Microsoft.Maui.Controls" Version="8.0.40" />
