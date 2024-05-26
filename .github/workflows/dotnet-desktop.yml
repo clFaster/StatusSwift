@@ -18,7 +18,7 @@ jobs:
     runs-on: windows-latest
 
     env:
-      Solution_Name: StatusSwift.sln
+      ProjectName: StatusSwift/StatusSwift.csproj
 
     steps:
     - name: Checkout
@@ -33,7 +33,7 @@ jobs:
       run: dotnet workload install maui
 
     - name: .NET - Publish
-      run: dotnet publish -f net8.0-windows10.0.19041.0 -c Release /p:GenerateAppxPackageOnBuild=true -o ./published-artifact
+      run: dotnet publish ${{env.ProjectName}} -f net8.0-windows10.0.19041.0 -c Release /p:GenerateAppxPackageOnBuild=true -o ./published-artifact
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v4
