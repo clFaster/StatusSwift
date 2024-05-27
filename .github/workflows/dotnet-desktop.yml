@@ -18,7 +18,7 @@ jobs:
     runs-on: windows-latest
 
     env:
-      ProjectName: ./StatusSwift/StatusSwift.csproj
+      ProjectName: ./StatusSwift.csproj
 
     steps:
     - name: Checkout
