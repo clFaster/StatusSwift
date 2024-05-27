@@ -37,7 +37,7 @@ public class StatusSwiftService(ILogger<MainViewModel> logger, IEventSimulator s
         }
 
         var interval = GetRandomSeconds();
-        logger.LogInformation("Move mouse, and schedule again in {interval} seconds.", interval);
+        logger.LogInformation("Move mouse, and schedule again in {Interval} seconds.", interval);
 
         // Simulate Mouse Move
         const short x = 10;

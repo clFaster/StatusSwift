@@ -1,33 +1,43 @@
-name: .NET Core Desktop
+name: Build Status Swift
 
-on: workflow_dispatch
+# Workflow triggers
+on: 
+  workflow_dispatch:
 
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+# Jobs to be executed
 jobs:
   build:
     runs-on: windows-latest
 
     env:
-      Solution_Name: StatusSwift.sln
+      ProjectName: StatusSwift.csproj
+      DotNetVersion: 8.0.x
 
     steps:
     - name: Checkout
       uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
 
-    - name: Install .NET Core
+    - name: Install .NET SDK ${{env.DotNetVersion}}
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 8.0.x
+        dotnet-version: '${{env.DotNetVersion}}'
 
-    - name: Restore the application
-      run: dotnet restore
+    - name: Install MAUI workload
+      run: dotnet workload install maui-desktop wasm-tools
 
-    - name: Publish
-      run: dotnet publish -f net8.0-windows10.0.19041.0 -c Release -p:RuntimeIdentifierOverride=win10-x64 -o ./published-artifact
+    - name: .NET - Publish
+      working-directory: './StatusSwift'
+      run: dotnet publish ${{env.ProjectName}} -c Release -f net8.0-windows10.0.19041.0
 
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v3
+    - name: Upload Build Artifacts
+      uses: actions/upload-artifact@v4
       with:
-        name: published-artifact
-        path: ./published-artifact
+        path: .\**\*.msix
