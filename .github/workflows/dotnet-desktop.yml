@@ -18,24 +18,26 @@ jobs:
     runs-on: windows-latest
 
     env:
-      ProjectName: ./StatusSwift/StatusSwift.csproj
+      ProjectName: StatusSwift.csproj
+      DotNetVersion: 8.0.x
 
     steps:
     - name: Checkout
       uses: actions/checkout@v4
 
-    - name: Install .NET Core
+    - name: Install .NET SDK ${{env.DotNetVersion}}
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 8.0.x
+        dotnet-version: '${{env.DotNetVersion}}'
 
     - name: Install MAUI workload
-      run: dotnet workload install maui-desktop
+      run: dotnet workload install maui-desktop wasm-tools
 
     - name: .NET - Publish
-      run: dotnet publish ${{env.ProjectName}} -c Release -f net8.0-windows10.0.19041.0 /p:GenerateAppxPackageOnBuild=true
+      working-directory: './StatusSwift'
+      run: dotnet publish ${{env.ProjectName}} -c Release -f net8.0-windows10.0.19041.0
 
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v4
       with:
-        path: .\**\AppPackages\**\*.*
+        path: .\**\*.msix
