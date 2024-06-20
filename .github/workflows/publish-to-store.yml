@@ -1,4 +1,4 @@
-name: Build Status Swift
+name: Publish to Store
 
 # Workflow triggers
 on: 
@@ -16,7 +16,7 @@ on:
 
 # Jobs to be executed
 jobs:
-  build:
+  update-version:
     runs-on: windows-latest
 
     env:
@@ -24,23 +24,16 @@ jobs:
       DotNetVersion: 8.0.x
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-
     - name: Read current version
-      id: read_version
       run: |
-        version=$(cat VERSION)
-        echo "Current version: $version"
-        echo "::set-output name=current_version::$version"
+        echo "Current version: ${{ vars.VERSION }}"
 
     - name: Bump version
       id: bump_version
       run: |
         increment=${{ inputs.release-type }}
-        current_version=${{ steps.read_version.outputs.current_version }}
 
-        IFS='.' read -r -a parts <<< "$current_version"
+        IFS='.' read -r -a parts <<< "${{ vars.VERSION }}"
 
         major=${parts[0]}
         minor=${parts[1]}
