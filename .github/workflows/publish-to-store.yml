@@ -14,8 +14,8 @@ on:
                 - minor
                 - major
 
-# Jobs to be executed
 jobs:
+  # Get Current Version and Bump it depending on the release-type input
   update-version:
     runs-on: ubuntu-latest
     permissions: write-all
@@ -65,7 +65,7 @@ jobs:
         echo "New version: $new_version"
 
         # Set the output variable for GitHub Actions
-        echo "::set-output name=new_version::$new_version"
+        echo "{new_version}={$new_version}" >> $GITHUB_OUTPUT
 
 
     - name: Update version var
