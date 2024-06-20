@@ -15,6 +15,7 @@ on:
                 - major
 
 jobs:
+
   # Get Current Version and Bump it depending on the release-type input
   update-version:
     runs-on: ubuntu-latest
@@ -67,7 +68,6 @@ jobs:
         # Set the output variable for GitHub Actions
         echo "new_version=$new_version" >> $GITHUB_OUTPUT
 
-
     - name: Update version var
       id: write_version
       env:
@@ -79,3 +79,43 @@ jobs:
         -H "X-GitHub-Api-Version: 2022-11-28" \
         /repos/clFaster/StatusSwift/actions/variables/VERSION \
         -f "name=VERSION" -f "value=${{ steps.bump_version.outputs.new_version }}"
+
+  # Build the app and publish artifact
+  build-app:
+    runs-on: windows-latest
+    needs: update-version
+
+    env:
+      ProjectName: StatusSwift.csproj
+      DotNetVersion: 8.0.x
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Install .NET SDK ${{env.DotNetVersion}}
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '${{env.DotNetVersion}}'
+
+    - name: Install MAUI workload
+      run: dotnet workload install maui-desktop wasm-tools
+
+    - name: Update Version in manifest
+      working-directory: './StatusSwift/Platforms/Windows'
+      run: |
+        $xmlFilePath = "Package.appxmanifest"
+        [xml]$xml = Get-Content $xmlFilePath
+        $newVersion = "${{ vars.VERSION }}.0"
+        $xml.Package.Identity.Version = $newVersion
+        $xml.Save($xmlFilePath)
+        Write-Output "Version updated to $newVersion in $xmlFilePath"
+
+    - name: .NET - Publish
+      working-directory: './StatusSwift'
+      run: dotnet publish ${{env.ProjectName}} -c Release -f net8.0-windows10.0.19041.0
+
+    - name: Upload Build Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        path: .\**\*.msix
