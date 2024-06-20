@@ -71,7 +71,7 @@ jobs:
     - name: Update version var
       id: write_version
       env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_TOKEN: ${{ secrets.STATUS_SWIFT_WORKFLOW_UPDATE_VERSION }}
       run: |
         gh api \
         --method PATCH \
