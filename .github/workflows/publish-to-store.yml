@@ -17,7 +17,7 @@ on:
 # Jobs to be executed
 jobs:
   update-version:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     env:
       ProjectName: StatusSwift.csproj
@@ -31,31 +31,46 @@ jobs:
     - name: Bump version
       id: bump_version
       run: |
-        increment=${{ inputs.release-type }}
+        # Retrieve the increment type from the GitHub Actions input
+        increment="${{ inputs.release-type }}"
 
+        # Split the VERSION variable into its major, minor, and patch components
         IFS='.' read -r -a parts <<< "${{ vars.VERSION }}"
+
+        # Check if the VERSION variable was split correctly
+        if [ "${#parts[@]}" -ne 3 ]; then
+        echo "Invalid version format"
+        exit 1
+        fi
 
         major=${parts[0]}
         minor=${parts[1]}
         patch=${parts[2]}
 
+        # Increment the appropriate version component
         if [ "$increment" = "major" ]; then
-          major=$((major + 1))
-          minor=0
-          patch=0
+        major=$((major + 1))
+        minor=0
+        patch=0
         elif [ "$increment" = "minor" ]; then
-          minor=$((minor + 1))
-          patch=0
+        minor=$((minor + 1))
+        patch=0
         elif [ "$increment" = "patch" ]; then
-          patch=$((patch + 1))
+        patch=$((patch + 1))
         else
-          echo "Invalid increment type"
-          exit 1
+        echo "Invalid increment type"
+        exit 1
         fi
 
+        # Construct the new version string
         new_version="$major.$minor.$patch"
+
+        # Output the new version
         echo "New version: $new_version"
+
+        # Set the output variable for GitHub Actions
         echo "::set-output name=new_version::$new_version"
+
 
     - name: Update version var
       id: write_version
