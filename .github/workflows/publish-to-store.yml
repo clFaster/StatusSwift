@@ -131,9 +131,11 @@ jobs:
 
     - name: Move file to current folder
       run: |
+        ls
         pattern="StatusSwift.csproj_*.msix"
         find . -type f -name "$pattern" -exec mv {} . \;
         echo "Files matching pattern '$pattern' have been moved to the current directory."
+        ls
 
     - uses: isaacrlevin/windows-store-action@1.0
       name: Publish to Store
@@ -143,4 +145,3 @@ jobs:
         client-secret: ${{ secrets.AZURE_AD_APPLICATION_SECRET }}
         app-id: ${{ secrets.STORE_APP_ID }}
         package-path: "StatusSwift.csproj_*.msix"
-        
