@@ -130,15 +130,12 @@ jobs:
       uses: actions/download-artifact@v4
 
     - name: Move file to current folder
-      id: move_file
+      id: find_file
       run: |
         pattern="StatusSwift.csproj_*.msix"
         found_file=$(find . -type f -name "$pattern" -print -quit)
         if [ -n "$found_file" ]; then
-            mv "$found_file" .
-            echo "Moved file: $found_file"
             echo "found_file=$found_file" >> $GITHUB_OUTPUT
-            echo "File matching pattern '$pattern' has been moved to the current directory."
         else
             echo "No file matching pattern '$pattern' found."
         fi
@@ -150,4 +147,4 @@ jobs:
         client-id: ${{ secrets.AZURE_AD_APPLICATION_CLIENT_ID }}
         client-secret: ${{ secrets.AZURE_AD_APPLICATION_SECRET }}
         app-id: ${{ secrets.STORE_APP_ID }}
-        package-path: ${{ steps.move_file.outputs.found_file }}
+        package-path: ${{ steps.find_file.outputs.found_file }}
