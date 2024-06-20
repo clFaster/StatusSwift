@@ -129,7 +129,11 @@ jobs:
     - name: Download Build Artifacts
       uses: actions/download-artifact@v4
 
-      
+    - name: Move file to current folder
+      run: |
+        pattern="StatusSwift.csproj_*.msix"
+        find . -type f -name "$pattern" -exec mv {} . \;
+        echo "Files matching pattern '$pattern' have been moved to the current directory."
 
     - uses: isaacrlevin/windows-store-action@1.0
       name: Publish to Store
