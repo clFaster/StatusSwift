@@ -65,7 +65,7 @@ jobs:
         echo "New version: $new_version"
 
         # Set the output variable for GitHub Actions
-        echo "{new_version}={$new_version}" >> $GITHUB_OUTPUT
+        echo "new_version=$new_version" >> $GITHUB_OUTPUT
 
 
     - name: Update version var
