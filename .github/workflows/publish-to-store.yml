@@ -135,16 +135,18 @@ jobs:
         pattern="StatusSwift.csproj_*.msix"
         found_file=$(find . -type f -name "$pattern" -print -quit)
         if [ -n "$found_file" ]; then
+            echo "Found file: $found_file"
             echo "found_file=$found_file" >> $GITHUB_OUTPUT
         else
             echo "No file matching pattern '$pattern' found."
         fi
 
-    - uses: isaacrlevin/windows-store-action@1.0
-      name: Publish to Store
-      with:
-        tenant-id: ${{ secrets.AZURE_AD_TENANT_ID }}
-        client-id: ${{ secrets.AZURE_AD_APPLICATION_CLIENT_ID }}
-        client-secret: ${{ secrets.AZURE_AD_APPLICATION_SECRET }}
-        app-id: ${{ secrets.STORE_APP_ID }}
-        package-path: ${{ steps.find_file.outputs.found_file }}
+    - name: Setup Microsoft Store Developer CLI
+      uses: microsoft/setup-msstore-cli@v1
+    - name: Configure Microsoft Store Developer CLI
+      run: |
+        msstore reconfigure --tenantId ${{ secrets.AZURE_AD_APPLICATION_CLIENT_ID }} --sellerId ${{ secrets.PARTNER_CENTER_SELLER_ID }} --clientId ${{ secrets.AZURE_AD_APPLICATION_CLIENT_ID }} --clientSecret ${{ secrets.AZURE_AD_APPLICATION_SECRET }}
+        msstore apps list
+        msstore apps get ${{ secrets.STORE_APP_ID}}
+        msstore submissions status ${{ secrets.STORE_APP_ID}}
+        msstore publish -i $(dirname "${{ github.action.find_file.outputs.found_file }}") -id ${{ secrets.STORE_APP_ID}} -nc
