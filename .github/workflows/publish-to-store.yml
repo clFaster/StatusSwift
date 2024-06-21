@@ -160,7 +160,7 @@ jobs:
       uses: microsoft/setup-msstore-cli@v1
     - name: Configure Microsoft Store Developer CLI
       run: |
-        $directory = Split-Path -Path ${{ github.action.find_file.outputs.found_file }} -Parent
+        $directory = Split-Path ${{ github.action.find_file.outputs.found_file }}
         msstore reconfigure --tenantId ${{ secrets.AZURE_AD_APPLICATION_CLIENT_ID }} --sellerId ${{ secrets.PARTNER_CENTER_SELLER_ID }} --clientId ${{ secrets.AZURE_AD_APPLICATION_CLIENT_ID }} --clientSecret ${{ secrets.AZURE_AD_APPLICATION_SECRET }}
         msstore apps list
         msstore apps get ${{ secrets.STORE_APP_ID}}
