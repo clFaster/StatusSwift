@@ -142,27 +142,26 @@ jobs:
     - name: Download Build Artifacts
       uses: actions/download-artifact@v4
 
-    - name: Move file to current folder
+    - name: Find file to publish
       id: find_file
-      shell: pwsh
+      shell: bash
       run: |
-        $pattern = "StatusSwift.csproj_*.msix"
-        $found_file = Get-ChildItem -Path . -Filter $pattern -File -Recurse -ErrorAction SilentlyContinue | Select-Object -First 1
-
-        if ($found_file) {
-            Write-Output "Found file: $($found_file.FullName)"
-            echo "found_file=$($found_file.FullName)" >> $env:GITHUB_OUTPUT
-        } else {
-            Write-Output "No file matching pattern '$pattern' found."
-        }
-
+        pattern="StatusSwift.csproj_*.msix"
+        found_file=$(find . -type f -name "$pattern" -print -quit)
+        if [ -n "$found_file" ]; then
+            echo "Found file: $found_file"
+            echo "found_file=$found_file" >> $GITHUB_OUTPUT
+        else
+            echo "No file matching pattern '$pattern' found."
+        fi
 
     - name: Setup Microsoft Store Developer CLI
       uses: microsoft/setup-msstore-cli@v1
     - name: Configure Microsoft Store Developer CLI
-      shell: pwsh
+      shell: bash
       run: |
-        $directory = Split-Path ${{ github.action.find_file.outputs.found_file }}
+        directory=$(dirname "${{ github.action.find_file.outputs.found_file }}")
+        echo "Directory to publish: $directory"
         msstore reconfigure --tenantId ${{ secrets.AZURE_AD_APPLICATION_CLIENT_ID }} --sellerId ${{ secrets.PARTNER_CENTER_SELLER_ID }} --clientId ${{ secrets.AZURE_AD_APPLICATION_CLIENT_ID }} --clientSecret ${{ secrets.AZURE_AD_APPLICATION_SECRET }}
         msstore apps list
         msstore apps get ${{ secrets.STORE_APP_ID}}
