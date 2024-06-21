@@ -144,13 +144,14 @@ jobs:
 
     - name: Move file to current folder
       id: find_file
+      shell: pwsh
       run: |
         $pattern = "StatusSwift.csproj_*.msix"
         $found_file = Get-ChildItem -Path . -Filter $pattern -File -Recurse -ErrorAction SilentlyContinue | Select-Object -First 1
 
         if ($found_file) {
             Write-Output "Found file: $($found_file.FullName)"
-            Write-Output "found_file=$($found_file.FullName)" >> $Env:GITHUB_OUTPUT
+            echo "found_file=$($found_file.FullName)" >> $env:GITHUB_OUTPUT
         } else {
             Write-Output "No file matching pattern '$pattern' found."
         }
@@ -159,6 +160,7 @@ jobs:
     - name: Setup Microsoft Store Developer CLI
       uses: microsoft/setup-msstore-cli@v1
     - name: Configure Microsoft Store Developer CLI
+      shell: pwsh
       run: |
         $directory = Split-Path ${{ github.action.find_file.outputs.found_file }}
         msstore reconfigure --tenantId ${{ secrets.AZURE_AD_APPLICATION_CLIENT_ID }} --sellerId ${{ secrets.PARTNER_CENTER_SELLER_ID }} --clientId ${{ secrets.AZURE_AD_APPLICATION_CLIENT_ID }} --clientSecret ${{ secrets.AZURE_AD_APPLICATION_SECRET }}
