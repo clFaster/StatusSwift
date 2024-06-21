@@ -21,6 +21,12 @@ jobs:
     runs-on: ubuntu-latest
     permissions: write-all
     steps:
+    - name: Ensure branch is main
+      if: github.ref != 'refs/heads/main'
+      run: |
+        echo "Publish a new version can only be done from the main branch."
+        exit 1
+
     - name: Read current version
       run: |
         echo "Current version: ${{ vars.VERSION }}"
