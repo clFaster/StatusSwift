@@ -20,6 +20,8 @@ jobs:
   update-version:
     runs-on: ubuntu-latest
     permissions: write-all
+    outputs:
+      new_version: ${{ steps.bump_version.outputs.new_version }}
     steps:
     # - name: Ensure branch is main
     #   if: github.ref != 'refs/heads/main'
@@ -113,7 +115,7 @@ jobs:
       run: |
         $xmlFilePath = "Package.appxmanifest"
         [xml]$xml = Get-Content $xmlFilePath
-        $newVersion = "${{ vars.VERSION }}.0"
+        $newVersion = "${{needs.update-version.outputs.new_version}}.0"
         $xml.Package.Identity.Version = $newVersion
         $xml.Save($xmlFilePath)
         Write-Output "Version updated to $newVersion in $xmlFilePath"
