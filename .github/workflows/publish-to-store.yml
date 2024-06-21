@@ -129,7 +129,7 @@ jobs:
 
   # Publish the artifact to the Microsoft Store
   publish-artifact:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     needs: build-app
 
     steps:
