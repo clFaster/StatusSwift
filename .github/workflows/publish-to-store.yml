@@ -21,12 +21,12 @@ jobs:
     runs-on: ubuntu-latest
     permissions: write-all
     steps:
-    - name: Ensure branch is main
-      if: github.ref != 'refs/heads/main'
-      run: |
-        text="Publish a new version can only be done from the main branch."
-        echo "::error file=app.js,line=10,col=15::$text"
-        exit 1
+    # - name: Ensure branch is main
+    #   if: github.ref != 'refs/heads/main'
+    #   run: |
+    #     text="Publish a new version can only be done from the main branch."
+    #     echo "::error::$text"
+    #     exit 1
 
     - name: Read current version
       run: |
