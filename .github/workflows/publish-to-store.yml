@@ -93,8 +93,8 @@ jobs:
         /repos/clFaster/StatusSwift/actions/variables/VERSION \
         -f "name=VERSION" -f "value=${{ steps.bump_version.outputs.new_version }}"
 
-  # Build the app and publish artifact
-  build-app:
+  # Publish to store
+  publish-app:
     runs-on: windows-latest
     needs: update-version
 
@@ -105,6 +105,18 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
+
+    - name: Setup Microsoft Store Developer CLI
+      uses: microsoft/setup-msstore-cli@v1
+
+    - name: Configure Microsoft Store Developer CLI
+      run: |
+        msstore reconfigure -t ${{ secrets.AZURE_AD_TENANT_ID }} -s ${{ secrets.PARTNER_CENTER_SELLER_ID }} -c ${{ secrets.AZURE_AD_APP_REGISTRATION_CLIENT_ID }} -cs "${{ secrets.AZURE_AD_APP_REGISTRATION_CLIENT_SECRET }}"
+        
+      # TODO: Add check if submission is pending and handle accordingly (only one submission can be pending at a time)
+    - name: Check submission state
+      run: |     
+        msstore submission status ${{ secrets.STORE_APP_ID}}
 
     - name: Install .NET SDK ${{env.DotNetVersion}}
       uses: actions/setup-dotnet@v4
@@ -126,34 +138,7 @@ jobs:
 
     - name: .NET - Publish
       working-directory: './StatusSwift'
-      run: dotnet publish ${{env.ProjectName}} -c Release -f net8.0-windows10.0.19041.0
-
-    - name: Upload Build Artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        if-no-files-found: error
-        path: .\**\AppPackages\**\*
-
-  # Publish the artifact to the Microsoft Store
-  publish-artifact:
-    runs-on: windows-latest
-    needs: build-app
-
-    steps:
-    - name: Download Build Artifacts
-      uses: actions/download-artifact@v4
-
-    - name: Setup Microsoft Store Developer CLI
-      uses: microsoft/setup-msstore-cli@v1
-
-    - name: Configure Microsoft Store Developer CLI
-      run: |
-        msstore reconfigure -t ${{ secrets.AZURE_AD_TENANT_ID }} -s ${{ secrets.PARTNER_CENTER_SELLER_ID }} -c ${{ secrets.AZURE_AD_APP_REGISTRATION_CLIENT_ID }} -cs "${{ secrets.AZURE_AD_APP_REGISTRATION_CLIENT_SECRET }}"
-        
-      # TODO: Add check if submission is pending and handle accordingly (only one submission can be pending at a time)
-    - name: Check submission state
-      run: |     
-        msstore submission status ${{ secrets.STORE_APP_ID}}
+      run: msstore package
 
     - name: Submit net submission
       shell: bash
@@ -161,13 +146,10 @@ jobs:
         pattern="StatusSwift.csproj_*.msix"
         found_file=$(find . -type f -name "$pattern" -print -quit)
         if [ -n "$found_file" ]; then
-            echo "Found file: $found_file"
             directory=$(dirname "$found_file")
             echo "Directory to publish: $directory"
-            msstore publish -i $directory -id ${{ secrets.STORE_APP_ID}} -nc true
+            msstore publish -i "$directory" -id ${{ secrets.STORE_APP_ID}} -nc
         else
             text="No file matching pattern '$pattern' found to be published."
             echo "::error title=MSIX File not found::$text"
         fi
-
-        
