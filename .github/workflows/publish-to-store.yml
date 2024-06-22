@@ -114,7 +114,7 @@ jobs:
         
     - name: Delete Pending Submissions
       run: |     
-        msstore submission delete ${{ secrets.STORE_APP_ID}}
+        msstore submission delete ${{ secrets.STORE_APP_ID}} --no-confirm
 
     - name: Install .NET SDK ${{env.DotNetVersion}}
       uses: actions/setup-dotnet@v4
