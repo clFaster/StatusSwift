@@ -113,10 +113,9 @@ jobs:
       run: |
         msstore reconfigure -t ${{ secrets.AZURE_AD_TENANT_ID }} -s ${{ secrets.PARTNER_CENTER_SELLER_ID }} -c ${{ secrets.AZURE_AD_APP_REGISTRATION_CLIENT_ID }} -cs "${{ secrets.AZURE_AD_APP_REGISTRATION_CLIENT_SECRET }}"
         
-      # TODO: Add check if submission is pending and handle accordingly (only one submission can be pending at a time)
-    - name: Check submission state
+    - name: Delete Pending Submissions
       run: |     
-        msstore submission status ${{ secrets.STORE_APP_ID}}
+        msstore submission delete ${{ secrets.STORE_APP_ID}}
 
     - name: Install .NET SDK ${{env.DotNetVersion}}
       uses: actions/setup-dotnet@v4
