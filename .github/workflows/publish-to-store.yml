@@ -160,7 +160,7 @@ jobs:
       # TODO: Add check if submission is pending and handle accordingly (only one submission can be pending at a time)
     - name: Check submission state
       run: |     
-        msstore submissions status ${{ secrets.STORE_APP_ID}}
+        msstore submission status ${{ secrets.STORE_APP_ID}}
 
     - name: Submit net submission
       shell: bash
