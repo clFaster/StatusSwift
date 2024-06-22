@@ -1,4 +1,4 @@
-name: Build Status Swift
+name: Publish to Store
 
 # Workflow triggers
 on: 
@@ -14,10 +14,88 @@ on:
                 - minor
                 - major
 
-# Jobs to be executed
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
 jobs:
-  build:
+  # Get Current Version and Bump it depending on the release-type input
+  update-version:
+    runs-on: ubuntu-latest
+    permissions: write-all
+    outputs:
+      new_version: ${{ steps.bump_version.outputs.new_version }}
+    steps:
+    - name: Ensure branch is main
+      if: github.ref != 'refs/heads/main'
+      run: |
+        text="Publish a new version can only be done from the main branch."
+        echo "::error title=Wrong Branch::$text"
+        exit 1
+
+    - name: Read current version
+      run: |
+        echo "Current version: ${{ vars.VERSION }}"
+
+    - name: Bump version
+      id: bump_version
+      run: |
+        # Retrieve the increment type from the GitHub Actions input
+        increment="${{ inputs.release-type }}"
+
+        # Split the VERSION variable into its major, minor, and patch components
+        IFS='.' read -r -a parts <<< "${{ vars.VERSION }}"
+
+        # Check if the VERSION variable was split correctly
+        if [ "${#parts[@]}" -ne 3 ]; then
+        echo "Invalid version format"
+        exit 1
+        fi
+
+        major=${parts[0]}
+        minor=${parts[1]}
+        patch=${parts[2]}
+
+        # Increment the appropriate version component
+        if [ "$increment" = "major" ]; then
+        major=$((major + 1))
+        minor=0
+        patch=0
+        elif [ "$increment" = "minor" ]; then
+        minor=$((minor + 1))
+        patch=0
+        elif [ "$increment" = "patch" ]; then
+        patch=$((patch + 1))
+        else
+        echo "Invalid increment type"
+        exit 1
+        fi
+
+        # Construct the new version string
+        new_version="$major.$minor.$patch"
+
+        # Output the new version
+        echo "New version: $new_version"
+
+        # Set the output variable for GitHub Actions
+        echo "new_version=$new_version" >> $GITHUB_OUTPUT
+
+    - name: Update version var
+      id: write_version
+      env:
+        GH_TOKEN: ${{ secrets.STATUS_SWIFT_WORKFLOW_UPDATE_VERSION }}
+      run: |
+        gh api \
+        --method PATCH \
+        -H "Accept: application/vnd.github+json" \
+        -H "X-GitHub-Api-Version: 2022-11-28" \
+        /repos/clFaster/StatusSwift/actions/variables/VERSION \
+        -f "name=VERSION" -f "value=${{ steps.bump_version.outputs.new_version }}"
+
+  # Publish to store
+  publish-app:
     runs-on: windows-latest
+    needs: update-version
 
     env:
       ProjectName: StatusSwift.csproj
@@ -27,49 +105,40 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
-    - name: Read current version
-      id: read_version
+    - name: Setup Microsoft Store Developer CLI
+      uses: microsoft/setup-msstore-cli@v1
+
+    - name: Configure Microsoft Store Developer CLI
       run: |
-        version=$(cat VERSION)
-        echo "Current version: $version"
-        echo "::set-output name=current_version::$version"
+        msstore reconfigure -t ${{ secrets.AZURE_AD_TENANT_ID }} -s ${{ secrets.PARTNER_CENTER_SELLER_ID }} -c ${{ secrets.AZURE_AD_APP_REGISTRATION_CLIENT_ID }} -cs "${{ secrets.AZURE_AD_APP_REGISTRATION_CLIENT_SECRET }}"
+        
+    - name: Delete Pending Submissions
+      run: |     
+        msstore submission delete ${{ secrets.STORE_APP_ID}}
 
-    - name: Bump version
-      id: bump_version
+    - name: Install .NET SDK ${{env.DotNetVersion}}
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '${{env.DotNetVersion}}'
+
+    - name: Install MAUI workload
+      run: dotnet workload install maui-desktop wasm-tools
+
+    - name: Update Version in manifest
+      working-directory: './StatusSwift/Platforms/Windows'
       run: |
-        increment=${{ inputs.release-type }}
-        current_version=${{ steps.read_version.outputs.current_version }}
+        $xmlFilePath = "Package.appxmanifest"
+        [xml]$xml = Get-Content $xmlFilePath
+        $newVersion = "${{needs.update-version.outputs.new_version}}.0"
+        $xml.Package.Identity.Version = $newVersion
+        $xml.Save($xmlFilePath)
+        Write-Output "Version updated to $newVersion in $xmlFilePath"
 
-        IFS='.' read -r -a parts <<< "$current_version"
+    - name: MSSTORE - Package Application
+      working-directory: './StatusSwift'
+      run: msstore package
 
-        major=${parts[0]}
-        minor=${parts[1]}
-        patch=${parts[2]}
-
-        if [ "$increment" = "major" ]; then
-          major=$((major + 1))
-          minor=0
-          patch=0
-        elif [ "$increment" = "minor" ]; then
-          minor=$((minor + 1))
-          patch=0
-        elif [ "$increment" = "patch" ]; then
-          patch=$((patch + 1))
-        else
-          echo "Invalid increment type"
-          exit 1
-        fi
-
-        new_version="$major.$minor.$patch"
-        echo "New version: $new_version"
-        echo "::set-output name=new_version::$new_version"
-
-    - name: Update version var
-      id: write_version
-      run: |
-        gh api \
-        --method PATCH \
-        -H "Accept: application/vnd.github+json" \
-        -H "X-GitHub-Api-Version: 2022-11-28" \
-        /repos/clFaster/StatusSwift/actions/variables/VERSION \
-        -f "name=VERSION" -f "value=${{ steps.bump_version.outputs.new_version }}"
+    - name: MSSTORE - Submit Application
+      working-directory: './StatusSwift'
+      run: |     
+        msstore publish -i .\AppPackages\ -id ${{ secrets.STORE_APP_ID}}
