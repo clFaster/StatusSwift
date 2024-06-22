@@ -124,21 +124,11 @@ jobs:
     - name: Install MAUI workload
       run: dotnet workload install maui-desktop wasm-tools
 
-    - name: Update Version in manifest
-      working-directory: './StatusSwift/Platforms/Windows'
-      run: |
-        $xmlFilePath = "Package.appxmanifest"
-        [xml]$xml = Get-Content $xmlFilePath
-        $newVersion = "${{needs.update-version.outputs.new_version}}.0"
-        $xml.Package.Identity.Version = $newVersion
-        $xml.Save($xmlFilePath)
-        Write-Output "Version updated to $newVersion in $xmlFilePath"
-
     - name: MSSTORE - Package Application
       working-directory: './StatusSwift'
-      run: msstore package
+      run: msstore package -ver ${{needs.update-version.outputs.new_version}}.0
 
-    - name: MSSTORE - Submit Application
+    - name: MSSTORE - Publish package
       working-directory: './StatusSwift'
       run: |     
-        msstore publish -i .\AppPackages\ -id ${{ secrets.STORE_APP_ID}}
+        msstore publish -i .\AppPackages\ -id ${{ secrets.STORE_APP_ID}} -nc
