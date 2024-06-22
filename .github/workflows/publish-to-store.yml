@@ -19,7 +19,6 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-
   # Get Current Version and Bump it depending on the release-type input
   update-version:
     runs-on: ubuntu-latest
