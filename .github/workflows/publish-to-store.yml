@@ -136,20 +136,11 @@ jobs:
         $xml.Save($xmlFilePath)
         Write-Output "Version updated to $newVersion in $xmlFilePath"
 
-    - name: .NET - Publish
+    - name: MSSTORE - Package Application
       working-directory: './StatusSwift'
       run: msstore package
 
-    - name: Submit net submission
-      shell: bash
+    - name: MSSTORE - Submit Application
+      working-directory: './StatusSwift'
       run: |     
-        pattern="StatusSwift.csproj_*.msix"
-        found_file=$(find . -type f -name "$pattern" -print -quit)
-        if [ -n "$found_file" ]; then
-            directory=$(dirname "$found_file")
-            echo "Directory to publish: $directory"
-            msstore publish -i "$directory" -id ${{ secrets.STORE_APP_ID}} -nc
-        else
-            text="No file matching pattern '$pattern' found to be published."
-            echo "::error title=MSIX File not found::$text"
-        fi
+        msstore publish -i .\AppPackages\ -id ${{ secrets.STORE_APP_ID}} -nc
