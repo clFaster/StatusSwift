@@ -152,7 +152,8 @@ jobs:
             echo "Found file: $found_file"
             echo "found_file=$found_file" >> $GITHUB_OUTPUT
         else
-            echo "No file matching pattern '$pattern' found."
+            text="No file matching pattern '$pattern' found to be published."
+            echo "::error title=MSIX File not found::$text"
         fi
 
     - name: Setup Microsoft Store Developer CLI
@@ -160,6 +161,7 @@ jobs:
     - name: Configure Microsoft Store Developer CLI
       shell: bash
       run: |
+        echo ${{ github.action.find_file.outputs.found_file }}
         directory=$(dirname "${{ github.action.find_file.outputs.found_file }}")
         echo "Directory to publish: $directory"
         msstore reconfigure --tenantId ${{ secrets.AZURE_AD_APPLICATION_CLIENT_ID }} --sellerId ${{ secrets.PARTNER_CENTER_SELLER_ID }} --clientId ${{ secrets.AZURE_AD_APPLICATION_CLIENT_ID }} --clientSecret ${{ secrets.AZURE_AD_APPLICATION_SECRET }}
