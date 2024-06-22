@@ -148,14 +148,6 @@ jobs:
     - name: Configure Microsoft Store Developer CLI
       run: |
         msstore reconfigure -t ${{ secrets.AZURE_AD_TENANT_ID }} -s ${{ secrets.PARTNER_CENTER_SELLER_ID }} -c ${{ secrets.AZURE_AD_APP_REGISTRATION_CLIENT_ID }} -cs "${{ secrets.AZURE_AD_APP_REGISTRATION_CLIENT_SECRET }}"
-
-    - name: List all apps
-      run: |        
-        msstore apps list
-
-    - name: Get StatusSwift app details
-      run: |           
-        msstore apps get ${{ secrets.STORE_APP_ID}}
         
       # TODO: Add check if submission is pending and handle accordingly (only one submission can be pending at a time)
     - name: Check submission state
