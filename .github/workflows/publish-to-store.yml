@@ -142,30 +142,39 @@ jobs:
     - name: Download Build Artifacts
       uses: actions/download-artifact@v4
 
-    - name: Find file to publish
-      id: find_file
-      shell: bash
+    - name: Setup Microsoft Store Developer CLI
+      uses: microsoft/setup-msstore-cli@v1
+
+    - name: Configure Microsoft Store Developer CLI
       run: |
+        msstore reconfigure --tenantId ${{ secrets.AZURE_AD_TENANT_ID }} --sellerId ${{ secrets.PARTNER_CENTER_SELLER_ID }} --clientId ${{ secrets.AZURE_AD_APPLICATION_CLIENT_ID }} --clientSecret ${{ secrets.AZURE_AD_APPLICATION_SECRET }}
+
+    - name: List all apps
+      run: |        
+        msstore apps list
+
+    - name: Get StatusSwift app details
+      run: |           
+        msstore apps get ${{ secrets.STORE_APP_ID}}
+        
+      # TODO: Add check if submission is pending and handle accordingly (only one submission can be pending at a time)
+    - name: Check submission state
+      run: |     
+        msstore submissions status ${{ secrets.STORE_APP_ID}}
+
+    - name: Submit net submission
+      shell: bash
+      run: |     
         pattern="StatusSwift.csproj_*.msix"
         found_file=$(find . -type f -name "$pattern" -print -quit)
         if [ -n "$found_file" ]; then
             echo "Found file: $found_file"
-            echo "found_file=$found_file" >> $GITHUB_OUTPUT
+            directory=$(dirname "${{ github.action.find_file.outputs.found_file }}")
+            echo "Directory to publish: $directory"
+            msstore publish -i $directory -id ${{ secrets.STORE_APP_ID}} -nc true
         else
             text="No file matching pattern '$pattern' found to be published."
             echo "::error title=MSIX File not found::$text"
         fi
 
-    - name: Setup Microsoft Store Developer CLI
-      uses: microsoft/setup-msstore-cli@v1
-    - name: Configure Microsoft Store Developer CLI
-      shell: bash
-      run: |
-        echo ${{ github.action.find_file.outputs.found_file }}
-        directory=$(dirname "${{ github.action.find_file.outputs.found_file }}")
-        echo "Directory to publish: $directory"
-        msstore reconfigure --tenantId ${{ secrets.AZURE_AD_APPLICATION_CLIENT_ID }} --sellerId ${{ secrets.PARTNER_CENTER_SELLER_ID }} --clientId ${{ secrets.AZURE_AD_APPLICATION_CLIENT_ID }} --clientSecret ${{ secrets.AZURE_AD_APPLICATION_SECRET }}
-        msstore apps list
-        msstore apps get ${{ secrets.STORE_APP_ID}}
-        msstore submissions status ${{ secrets.STORE_APP_ID}}
-        msstore publish -i $directory -id ${{ secrets.STORE_APP_ID}} -nc
+        
