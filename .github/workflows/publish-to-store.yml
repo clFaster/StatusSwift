@@ -27,12 +27,12 @@ jobs:
     outputs:
       new_version: ${{ steps.bump_version.outputs.new_version }}
     steps:
-    # - name: Ensure branch is main
-    #   if: github.ref != 'refs/heads/main'
-    #   run: |
-    #     text="Publish a new version can only be done from the main branch."
-    #     echo "::error title=Wrong Branch::$text"
-    #     exit 1
+    - name: Ensure branch is main
+      if: github.ref != 'refs/heads/main'
+      run: |
+        text="Publish a new version can only be done from the main branch."
+        echo "::error title=Wrong Branch::$text"
+        exit 1
 
     - name: Read current version
       run: |
@@ -142,4 +142,4 @@ jobs:
     - name: MSSTORE - Submit Application
       working-directory: './StatusSwift'
       run: |     
-        msstore publish -i .\AppPackages\ -id ${{ secrets.STORE_APP_ID}} -nc
+        msstore publish -i .\AppPackages\ -id ${{ secrets.STORE_APP_ID}}
