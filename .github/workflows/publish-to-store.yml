@@ -147,7 +147,11 @@ jobs:
 
     - name: Configure Microsoft Store Developer CLI
       run: |
-        msstore reconfigure --tenantId ${{ secrets.AZURE_AD_TENANT_ID }} --sellerId ${{ secrets.PARTNER_CENTER_SELLER_ID }} --clientId ${{ secrets.AZURE_AD_APPLICATION_CLIENT_ID }} --clientSecret "${{ secrets.AZURE_AD_APPLICATION_SECRET }}"
+        msstore reconfigure \
+          --tenantId ${{ secrets.AZURE_AD_TENANT_ID }} \
+          --sellerId ${{ secrets.PARTNER_CENTER_SELLER_ID }} \
+          --clientId ${{ secrets.AZURE_AD_APP_REGISTRATION_CLIENT_ID }} \
+          --clientSecret "${{ secrets.AZURE_AD_APPLICATION_SECRET }}"
 
     - name: List all apps
       run: |        
