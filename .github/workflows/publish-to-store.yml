@@ -113,8 +113,10 @@ jobs:
         msstore reconfigure -t ${{ secrets.AZURE_AD_TENANT_ID }} -s ${{ secrets.PARTNER_CENTER_SELLER_ID }} -c ${{ secrets.AZURE_AD_APP_REGISTRATION_CLIENT_ID }} -cs "${{ secrets.AZURE_AD_APP_REGISTRATION_CLIENT_SECRET }}"
         
     - name: Delete Pending Submissions
+      continue-on-error: true
       run: |     
         msstore submission delete ${{ secrets.STORE_APP_ID}} --no-confirm
+        exit 0
 
     - name: Install .NET SDK ${{env.DotNetVersion}}
       uses: actions/setup-dotnet@v4
