@@ -131,7 +131,8 @@ jobs:
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v4
       with:
-        path: .\**\*.msix
+        if-no-files-found: error
+        path: .\**\AppPackages\**\*
 
   # Publish the artifact to the Microsoft Store
   publish-artifact:
