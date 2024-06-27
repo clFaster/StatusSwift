@@ -96,6 +96,7 @@ jobs:
   publish-app:
     runs-on: windows-latest
     needs: update-version
+    timeout-minutes: 120
 
     env:
       ProjectName: StatusSwift.csproj
@@ -133,4 +134,13 @@ jobs:
     - name: MSSTORE - Publish package
       working-directory: './StatusSwift'
       run: |     
-        msstore publish -id ${{ secrets.STORE_APP_ID}} -nc
+        msstore publish -id ${{ secrets.STORE_APP_ID}}
+
+    - name: Create Release
+      working-directory: './StatusSwift'
+      env:
+        GH_TOKEN: ${{github.token}}
+      run: |
+        gh release create v${{needs.update-version.outputs.new_version}}.0 --generate-notes
+        Compress-Archive -Path .\AppPackages -DestinationPath .\AppPackages.zip
+        gh release upload v${{needs.update-version.outputs.new_version}}.0 .\AppPackages.zip
