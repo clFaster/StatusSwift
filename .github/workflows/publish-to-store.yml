@@ -133,4 +133,4 @@ jobs:
     - name: MSSTORE - Publish package
       working-directory: './StatusSwift'
       run: |     
-        msstore publish -i .\AppPackages\ -id ${{ secrets.STORE_APP_ID}} -nc
+        msstore publish -id ${{ secrets.STORE_APP_ID}} -nc
