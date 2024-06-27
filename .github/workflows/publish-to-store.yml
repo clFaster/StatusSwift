@@ -97,6 +97,8 @@ jobs:
     runs-on: windows-latest
     needs: update-version
     timeout-minutes: 120
+    permissions:
+      contents: write
 
     env:
       ProjectName: StatusSwift.csproj
