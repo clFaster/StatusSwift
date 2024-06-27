@@ -129,7 +129,9 @@ jobs:
 
     - name: MSSTORE - Package Application
       working-directory: './StatusSwift'
-      run: msstore package -ver ${{needs.update-version.outputs.new_version}}.0
+      run: |
+        msstore --version
+        msstore package -ver ${{needs.update-version.outputs.new_version}}.0
 
     - name: MSSTORE - Publish package
       working-directory: './StatusSwift'
