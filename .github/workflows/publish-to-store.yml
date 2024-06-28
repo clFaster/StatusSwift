@@ -96,7 +96,6 @@ jobs:
   publish-app:
     runs-on: windows-latest
     needs: update-version
-    timeout-minutes: 120
     permissions:
       contents: write
 
