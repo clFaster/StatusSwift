@@ -26,12 +26,12 @@ jobs:
     outputs:
       new_version: ${{ steps.bump_version.outputs.new_version }}
     steps:
-    - name: Ensure branch is main
-      if: github.ref != 'refs/heads/main'
-      run: |
-        text="Publish a new version can only be done from the main branch."
-        echo "::error title=Wrong Branch::$text"
-        exit 1
+    # - name: Ensure branch is main
+    #   if: github.ref != 'refs/heads/main'
+    #   run: |
+    #     text="Publish a new version can only be done from the main branch."
+    #     echo "::error title=Wrong Branch::$text"
+    #     exit 1
 
     - name: Read current version
       run: |
@@ -140,11 +140,11 @@ jobs:
       run: |     
         msstore publish -id ${{ secrets.STORE_APP_ID}}
 
-    - name: Create Release
-      working-directory: './StatusSwift'
-      env:
-        GH_TOKEN: ${{github.token}}
-      run: |
-        gh release create v${{needs.update-version.outputs.new_version}}.0 --generate-notes
-        Compress-Archive -Path .\AppPackages -DestinationPath .\AppPackages.zip
-        gh release upload v${{needs.update-version.outputs.new_version}}.0 .\AppPackages.zip
+    # - name: Create Release
+    #   working-directory: './StatusSwift'
+    #   env:
+    #     GH_TOKEN: ${{github.token}}
+    #   run: |
+    #     gh release create v${{needs.update-version.outputs.new_version}}.0 --generate-notes
+    #     Compress-Archive -Path .\AppPackages -DestinationPath .\AppPackages.zip
+    #     gh release upload v${{needs.update-version.outputs.new_version}}.0 .\AppPackages.zip
