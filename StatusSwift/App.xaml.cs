@@ -14,7 +14,9 @@ public partial class App() : Application
     protected override Window CreateWindow(IActivationState? activationState) =>
         new(new AppShell())
         {
-            Width = 500,
-            Height = 300
+            Width = 550,
+            Height = 500,
+            MinimumWidth = 450,
+            MinimumHeight = 500
         };
 }

@@ -1,19 +1,20 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="StatusSwift.MainPage"
              xmlns:viewmodel="clr-namespace:StatusSwift.ViewModel"
              xmlns:tb="https://notifyicon.com/"
-             x:DataType="viewmodel:MainViewModel">
+             x:DataType="viewmodel:MainViewModel"
+             BackgroundColor="{AppThemeBinding Light=#f5f5f5, Dark=#121212}">
     
-    <StackLayout Padding="20">
-        <!-- Big Button for Enable/Disable -->
+    <Grid RowDefinitions="*">
+        <!-- Taskbar Icon -->
         <tb:TaskbarIcon
             IconSource="Resources/AppIcon/appicon.ico"
             x:Name="TrayIcon"
             LeftClickCommand="{Binding ShowWindowCommand}"
             NoLeftClickDelay="True"
-        >
+            ToolTipText="{Binding TrayTooltipText}">
             <FlyoutBase.ContextFlyout>
                 <MenuFlyout>
                     <MenuFlyoutItem Command="{Binding ToggleStatusSwiftActiveCommand}" Text="{Binding ButtonText}" />
@@ -24,10 +25,135 @@
             </FlyoutBase.ContextFlyout>
         </tb:TaskbarIcon>
         
-        <Button Text="{Binding ButtonText}"
-                FontSize="35"
-                Command="{Binding ToggleStatusSwiftActiveCommand}"
-                HorizontalOptions="CenterAndExpand"
-                VerticalOptions="CenterAndExpand"/>
-    </StackLayout>
+        <!-- Main Content -->
+        <Grid Padding="25" VerticalOptions="Fill" HorizontalOptions="Fill">
+            <ScrollView VerticalOptions="Center" HorizontalOptions="Center">
+                <!-- Card Container -->
+                <Border 
+                    StrokeShape="RoundRectangle 12,12,12,12"
+                    BackgroundColor="{AppThemeBinding Light=White, Dark=#222222}"
+                    Stroke="{AppThemeBinding Light=#e0e0e0, Dark=#333333}"
+                    StrokeThickness="1"
+                    Padding="20"
+                    Margin="10"
+                    HorizontalOptions="Center"
+                    MinimumWidthRequest="300"
+                    WidthRequest="350"
+                    MaximumWidthRequest="450">
+                    <Border.Shadow>
+                        <Shadow Brush="#40000000"
+                                Offset="0,4"
+                                Radius="8" />
+                    </Border.Shadow>
+                    
+                    <VerticalStackLayout Spacing="20">
+                        <!-- App Title -->
+                        <VerticalStackLayout HorizontalOptions="Center" Spacing="0" Margin="0,0,0,10">
+                            <Label 
+                                Text="StatusSwift" 
+                                FontSize="26" 
+                                FontAttributes="Bold" 
+                                HorizontalOptions="Center"
+                                TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}" />
+                            <Label 
+                                Text="Keep your system active" 
+                                FontSize="14" 
+                                HorizontalOptions="Center"
+                                TextColor="{AppThemeBinding Light=#777777, Dark=#aaaaaa}" />
+                        </VerticalStackLayout>
+                        
+                        <!-- Status Indicator -->
+                        <Grid ColumnDefinitions="Auto,*" VerticalOptions="Center" HorizontalOptions="Center">
+                            <Border 
+                                WidthRequest="16" 
+                                HeightRequest="16"
+                                StrokeThickness="0"
+                                StrokeShape="Ellipse"
+                                BackgroundColor="{Binding IsActive, Converter={StaticResource BoolToColorConverter}, ConverterParameter='Active'}"
+                                Margin="0,0,10,0">
+                                <Border.Shadow>
+                                    <Shadow 
+                                        Brush="{Binding IsActive, Converter={StaticResource BoolToColorConverter}, ConverterParameter='Active'}"
+                                        Offset="0,0"
+                                        Opacity="0.5"
+                                        Radius="8" />
+                                </Border.Shadow>
+                            </Border>
+                            <Label 
+                                Grid.Column="1"
+                                Text="{Binding IsActive, Converter={StaticResource BoolToTextConverter}, ConverterParameter='Status'}"
+                                FontSize="18"
+                                FontAttributes="Bold"
+                                VerticalOptions="Center" />
+                        </Grid>
+                        
+                        <!-- Timer Display -->
+                        <VerticalStackLayout 
+                            IsVisible="{Binding IsActive}"
+                            HorizontalOptions="Center"
+                            Margin="0,10,0,10">
+                            <Label 
+                                Text="Running Time" 
+                                FontSize="16" 
+                                HorizontalOptions="Center"
+                                TextColor="{AppThemeBinding Light=#777777, Dark=#aaaaaa}" />
+                            
+                            <Border 
+                                StrokeShape="RoundRectangle 8,8,8,8"
+                                BackgroundColor="{AppThemeBinding Light=#f0f0f0, Dark=#1e1e1e}"
+                                Stroke="{AppThemeBinding Light=#d0d0d0, Dark=#333333}"
+                                StrokeThickness="1"
+                                Padding="15,10"
+                                Margin="0,5,0,0"
+                                HorizontalOptions="Center">
+                                <Label 
+                                    Text="{Binding ElapsedTimeText}" 
+                                    FontSize="32" 
+                                    FontFamily="Monospace"
+                                    FontAttributes="Bold"
+                                    HorizontalOptions="Center"
+                                    TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}" />
+                            </Border>
+                        </VerticalStackLayout>
+                        
+                        <!-- Toggle Button -->
+                        <Button 
+                            Text="{Binding ButtonText}"
+                            Command="{Binding ToggleStatusSwiftActiveCommand}"
+                            HorizontalOptions="Center"
+                            WidthRequest="220"
+                            HeightRequest="60"
+                            FontSize="18"
+                            FontAttributes="Bold"
+                            CornerRadius="12"
+                            BackgroundColor="{Binding IsActive, Converter={StaticResource BoolToButtonColorConverter}}"
+                            Margin="0,10,0,0">
+                            <Button.Shadow>
+                                <Shadow Brush="#40000000"
+                                        Offset="0,2"
+                                        Radius="4" />
+                            </Button.Shadow>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroupList>
+                                    <VisualStateGroup Name="CommonStates">
+                                        <VisualState Name="Normal" />
+                                        <VisualState Name="PointerOver">
+                                            <VisualState.Setters>
+                                                <Setter Property="Scale" Value="1.05" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState Name="Pressed">
+                                            <VisualState.Setters>
+                                                <Setter Property="Scale" Value="0.95" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateGroupList>
+                            </VisualStateManager.VisualStateGroups>
+                        </Button>
+                    </VerticalStackLayout>
+                </Border>
+            </ScrollView>
+        </Grid>
+    </Grid>
 </ContentPage>

@@ -9,11 +9,16 @@ StatusSwift is a tool designed to keep your status in chat applications like Dis
 - **Automatic Status Management**: Keeps your status set to "available" in supported chat applications.
 - **Multi-Platform Support**: Works with popular chat platforms such as Discord and Microsoft Teams.
 - **User-Friendly**: Simple and intuitive interface for easy setup and use.
+- **Runtime Timer**: Tracks how long StatusSwift has been active in your current session.
+- **System Tray Integration**: Easily access StatusSwift from your system tray with status information.
+- **Modern UI**: Clean, responsive design that adapts to both light and dark modes.
 - **Open Source**: Free to use and modify under the GPL-3.0 license.
 
 ## Usage
 
 - Open StatusSwift.
-- Select "Enable StatusSwift".
-- Minimize to hide it in the system tray.
-- StatusSwift will run in the background and keep your status set to "available" on supported platforms.
+- Click the "Enable StatusSwift" button to activate.
+- The timer will show how long StatusSwift has been running.
+- Minimize or close the window to continue running in the background.
+- Access StatusSwift anytime from the system tray icon.
+- When finished, click "Disable StatusSwift" or exit from the tray menu.

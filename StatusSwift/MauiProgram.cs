@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using SharpHook;
 using StatusSwift.BO;
+using StatusSwift.Converters;
 using StatusSwift.Services;
 using StatusSwift.ViewModel;
 
@@ -42,5 +43,9 @@ public static class MauiProgram
         
         services.AddSingleton<IStatusSwiftService, StatusSwiftService>();
         services.AddTransient<IEventSimulator, EventSimulator>();
+
+        services.AddSingleton<BoolToColorConverter>();
+        services.AddSingleton<BoolToTextConverter>();
+        services.AddSingleton<BoolToButtonColorConverter>();
     }
 }
