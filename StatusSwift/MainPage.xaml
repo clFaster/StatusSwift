@@ -119,6 +119,7 @@
                         
                         <!-- Toggle Button -->
                         <Button 
+                            x:Name="ToggleButton"
                             Text="{Binding ButtonText}"
                             Command="{Binding ToggleStatusSwiftActiveCommand}"
                             HorizontalOptions="Center"
@@ -134,23 +135,6 @@
                                         Offset="0,2"
                                         Radius="4" />
                             </Button.Shadow>
-                            <VisualStateManager.VisualStateGroups>
-                                <VisualStateGroupList>
-                                    <VisualStateGroup Name="CommonStates">
-                                        <VisualState Name="Normal" />
-                                        <VisualState Name="PointerOver">
-                                            <VisualState.Setters>
-                                                <Setter Property="Scale" Value="1.05" />
-                                            </VisualState.Setters>
-                                        </VisualState>
-                                        <VisualState Name="Pressed">
-                                            <VisualState.Setters>
-                                                <Setter Property="Scale" Value="0.95" />
-                                            </VisualState.Setters>
-                                        </VisualState>
-                                    </VisualStateGroup>
-                                </VisualStateGroupList>
-                            </VisualStateManager.VisualStateGroups>
                         </Button>
                     </VerticalStackLayout>
                 </Border>
