@@ -65,6 +65,7 @@
                         <!-- Status Indicator -->
                         <Grid ColumnDefinitions="Auto,*" VerticalOptions="Center" HorizontalOptions="Center">
                             <Border 
+                                x:Name="StatusIndicator"
                                 WidthRequest="16" 
                                 HeightRequest="16"
                                 StrokeThickness="0"
