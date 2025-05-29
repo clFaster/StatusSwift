@@ -3,19 +3,17 @@
 
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">    <Color x:Key="Primary">#6366f1</Color>
+    <Color x:Key="PrimaryDark">#4338ca</Color>
+    <Color x:Key="PrimaryDarkText">#f8fafc</Color>
+    <Color x:Key="Secondary">#8b5cf6</Color>
+    <Color x:Key="SecondaryDarkText">#f8fafc</Color>
+    <Color x:Key="Tertiary">#a855f7</Color>
 
-    <Color x:Key="Primary">#0abdf5</Color>
-    <Color x:Key="PrimaryDark">#0abdf5</Color>
-    <Color x:Key="PrimaryDarkText">#242424</Color>
-    <Color x:Key="Secondary">#6C8AE1</Color>
-    <Color x:Key="SecondaryDarkText">#242424</Color>
-    <Color x:Key="Tertiary">#A44C9E</Color>
-
-    <Color x:Key="White">#E6F4F1</Color>
-    <Color x:Key="Black">Black</Color>
-    <Color x:Key="Magenta">#AB276F</Color>
-    <Color x:Key="MidnightBlue">#8F6DC5</Color>
+    <Color x:Key="White">#f8fafc</Color>
+    <Color x:Key="Black">#0f172a</Color>
+    <Color x:Key="Magenta">#ec4899</Color>
+    <Color x:Key="MidnightBlue">#1e40af</Color>
     <Color x:Key="OffBlack">#212121</Color>
 
     <Color x:Key="Gray100">#E1E1E1</Color>

@@ -12,7 +12,7 @@
             Text="{Binding TimerLabel, Source={x:Reference timerDisplayControl}}"
             FontSize="16"
             HorizontalOptions="Center"
-            TextColor="{AppThemeBinding Light=#777777, Dark=#aaaaaa}" />
+            TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray400}}" />
 
         <Border
             StrokeShape="RoundRectangle 8,8,8,8"
@@ -28,6 +28,7 @@
                 FontFamily="Monospace"
                 FontAttributes="Bold"
                 HorizontalOptions="Center"
+                VerticalOptions="Center"
                 TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}" />
         </Border>
     </VerticalStackLayout>
