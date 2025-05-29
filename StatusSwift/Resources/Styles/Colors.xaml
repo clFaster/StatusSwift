@@ -6,9 +6,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">    <Color x:Key="Primary">#6366f1</Color>
     <Color x:Key="PrimaryDark">#4338ca</Color>
     <Color x:Key="PrimaryDarkText">#f8fafc</Color>
+    <Color x:Key="PrimaryHover">#5855eb</Color>
     <Color x:Key="Secondary">#8b5cf6</Color>
     <Color x:Key="SecondaryDarkText">#f8fafc</Color>
     <Color x:Key="Tertiary">#a855f7</Color>
+    <Color x:Key="TertiaryHover">#9333ea</Color>
 
     <Color x:Key="White">#f8fafc</Color>
     <Color x:Key="Black">#0f172a</Color>
@@ -23,11 +25,11 @@
     <Color x:Key="Gray500">#6E6E6E</Color>
     <Color x:Key="Gray600">#404040</Color>
     <Color x:Key="Gray900">#212121</Color>
-    <Color x:Key="Gray950">#141414</Color>
-
-    <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}" />
+    <Color x:Key="Gray950">#141414</Color>    <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}" />
+    <SolidColorBrush x:Key="PrimaryHoverBrush" Color="{StaticResource PrimaryHover}" />
     <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}" />
     <SolidColorBrush x:Key="TertiaryBrush" Color="{StaticResource Tertiary}" />
+    <SolidColorBrush x:Key="TertiaryHoverBrush" Color="{StaticResource TertiaryHover}" />
     <SolidColorBrush x:Key="WhiteBrush" Color="{StaticResource White}" />
     <SolidColorBrush x:Key="BlackBrush" Color="{StaticResource Black}" />
 
