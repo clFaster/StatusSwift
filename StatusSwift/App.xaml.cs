@@ -8,15 +8,17 @@ public partial class App() : Application
     {
         InitializeComponent();
 
-        logger.LogInformation("App is starting...");  
+        logger.LogInformation("App is starting...");
     }
 
-    protected override Window CreateWindow(IActivationState? activationState) =>
-        new(new AppShell())
+    protected override Window CreateWindow(IActivationState? activationState)
+    {
+        return new Window(new AppShell())
         {
             Width = 550,
             Height = 500,
             MinimumWidth = 450,
             MinimumHeight = 500
         };
+    }
 }

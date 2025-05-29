@@ -1,4 +1,5 @@
 ﻿using H.NotifyIcon;
+using Microsoft.Maui.Handlers;
 using Microsoft.Maui.Platform;
 using Microsoft.UI.Windowing;
 
@@ -6,42 +7,40 @@ using Microsoft.UI.Windowing;
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
 namespace StatusSwift.WinUI;
+
 /// <summary>
-/// Provides application-specific behavior to supplement the default Application class.
+///     Provides application-specific behavior to supplement the default Application class.
 /// </summary>
 public partial class App : MauiWinUIApplication
 {
     /// <summary>
-    /// Initializes the singleton application object.  This is the first line of authored code
-    /// executed, and as such is the logical equivalent of main() or WinMain().
+    ///     Initializes the singleton application object.  This is the first line of authored code
+    ///     executed, and as such is the logical equivalent of main() or WinMain().
     /// </summary>
     public App()
     {
-        this.InitializeComponent();
-        
-        Microsoft.Maui.Handlers.WindowHandler.Mapper.AppendToMapping(nameof(IWindow), (handler, view) =>
+        InitializeComponent();
+
+        WindowHandler.Mapper.AppendToMapping(nameof(IWindow), (handler, view) =>
         {
             var nativeWindow = handler.PlatformView;
             var appWindow = nativeWindow.GetAppWindow();
             if (appWindow is not null)
-            {
                 appWindow.Changed += (sender, args) =>
                 {
                     if (appWindow.Presenter is not OverlappedPresenter overlappedPresenter) return;
                     if (!args.DidPresenterChange ||
                         overlappedPresenter.State != OverlappedPresenterState.Minimized) return;
-                    
+
                     var window = Microsoft.Maui.Controls.Application.Current?.MainPage?.Window;
-                    if (window == null)
-                    {
-                        return;
-                    }
+                    if (window == null) return;
                     window.Hide();
                 };
-            }
         });
     }
 
-    protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
+    protected override MauiApp CreateMauiApp()
+    {
+        return MauiProgram.CreateMauiApp();
+    }
 }
-

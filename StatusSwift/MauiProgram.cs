@@ -7,6 +7,7 @@ using StatusSwift.Services;
 using StatusSwift.ViewModel;
 
 namespace StatusSwift;
+
 public static class MauiProgram
 {
     public static MauiApp CreateMauiApp()
@@ -20,11 +21,11 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
-        
+
         ConfigureServices(builder.Services);
 
 #if DEBUG
-		builder.Logging.AddDebug();
+        builder.Logging.AddDebug();
         Preferences.Default.Set(PreferenceKeys.Min_time, 2);
         Preferences.Default.Set(PreferenceKeys.Max_time, 5);
 #else
@@ -40,7 +41,7 @@ public static class MauiProgram
     {
         services.AddSingleton<MainPage>();
         services.AddSingleton<MainViewModel>();
-        
+
         services.AddSingleton<IStatusSwiftService, StatusSwiftService>();
         services.AddTransient<IEventSimulator, EventSimulator>();
 

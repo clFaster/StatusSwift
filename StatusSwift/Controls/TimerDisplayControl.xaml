@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StatusSwift.Controls.TimerDisplayControl"
+             x:Name="timerDisplayControl">
+    <VerticalStackLayout
+        IsVisible="{Binding TimerVisible, Source={x:Reference timerDisplayControl}}"
+        HorizontalOptions="Center"
+        Margin="0,10,0,10">
+        <Label
+            Text="{Binding TimerLabel, Source={x:Reference timerDisplayControl}}"
+            FontSize="16"
+            HorizontalOptions="Center"
+            TextColor="{AppThemeBinding Light=#777777, Dark=#aaaaaa}" />
+
+        <Border
+            StrokeShape="RoundRectangle 8,8,8,8"
+            BackgroundColor="{AppThemeBinding Light=#f0f0f0, Dark=#1e1e1e}"
+            Stroke="{AppThemeBinding Light=#d0d0d0, Dark=#333333}"
+            StrokeThickness="1"
+            Padding="15,10"
+            Margin="0,5,0,0"
+            HorizontalOptions="Center">
+            <Label
+                Text="{Binding ElapsedTime, Source={x:Reference timerDisplayControl}}"
+                FontSize="32"
+                FontFamily="Monospace"
+                FontAttributes="Bold"
+                HorizontalOptions="Center"
+                TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}" />
+        </Border>
+    </VerticalStackLayout>
+</ContentView>
