@@ -8,12 +8,10 @@
              xmlns:tb="https://notifyicon.com/"
              x:DataType="viewmodel:MainViewModel"
              BackgroundColor="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}">
-
     <Grid RowDefinitions="*">
         <!-- Taskbar Icon -->
         <tb:TaskbarIcon
             IconSource="Resources/AppIcon/appicon.ico"
-            x:Name="TrayIcon"
             LeftClickCommand="{Binding ShowWindowCommand}"
             NoLeftClickDelay="True"
             ToolTipText="{Binding TrayTooltipText}">
@@ -47,32 +45,10 @@
                                 Radius="8" />
                     </Border.Shadow>
                     <!-- Dynamic Content based on IsActive state -->
-                    <ContentView x:Name="DynamicContentView">
-                        <ContentView.Triggers>
-                            <DataTrigger
-                                TargetType="ContentView"
-                                Binding="{Binding IsActive}"
-                                Value="True">
-                                <Setter Property="Content">
-                                    <Setter.Value>
-                                        <views:StatusActiveView
-                                            BindingContext="{Binding}" />
-                                    </Setter.Value>
-                                </Setter>
-                            </DataTrigger>
-                            <DataTrigger
-                                TargetType="ContentView"
-                                Binding="{Binding IsActive}"
-                                Value="False">
-                                <Setter Property="Content">
-                                    <Setter.Value>
-                                        <views:StatusInactiveView
-                                            BindingContext="{Binding}" />
-                                    </Setter.Value>
-                                </Setter>
-                            </DataTrigger>
-                        </ContentView.Triggers>
-                    </ContentView>
+                    <Grid>
+                        <views:StatusActiveView BindingContext="{Binding}" IsVisible="{Binding IsActive}" />
+                        <views:StatusInactiveView BindingContext="{Binding}" IsVisible="{Binding IsActive, Converter={StaticResource InvertedBoolConverter}}" />
+                    </Grid>
                 </Border>
             </ContentView>
         </Grid>

@@ -13,6 +13,7 @@
             <converters:BoolToColorConverter x:Key="BoolToColorConverter" />
             <converters:BoolToTextConverter x:Key="BoolToTextConverter" />
             <converters:BoolToButtonColorConverter x:Key="BoolToButtonColorConverter" />
+            <converters:InvertedBoolConverter x:Key="InvertedBoolConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>
