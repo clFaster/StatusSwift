@@ -110,6 +110,25 @@
         <Setter Property="Margin" Value="0" />
         <Setter Property="BackgroundColor"
                 Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" />
-
+        <Setter Property="Shadow">
+            <Setter.Value>
+                <Shadow Brush="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                        Offset="0, 0"
+                        Radius="4" />
+            </Setter.Value>
+        </Setter>
     </Style>
+
+    <Style TargetType="Border" x:Key="StatusIndicatorActive" BasedOn="{StaticResource StatusIndicator}">
+        <Setter Property="BackgroundColor"
+                Value="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource SecondaryDark}}" />
+        <Setter Property="Shadow">
+            <Setter.Value>
+                <Shadow Brush="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource SecondaryDark}}"
+                        Offset="0, 0"
+                        Radius="4" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>
