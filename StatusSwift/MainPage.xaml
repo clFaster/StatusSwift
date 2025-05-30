@@ -30,7 +30,7 @@
             <ContentView VerticalOptions="Center" HorizontalOptions="Center">
                 <Border
                     StrokeShape="RoundRectangle 12,12,12,12"
-                    BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource OffBlack}}"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource Gray900}}"
                     Stroke="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource Gray800}}"
                     StrokeThickness="1"
                     Padding="20"

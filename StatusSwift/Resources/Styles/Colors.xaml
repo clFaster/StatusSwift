@@ -59,27 +59,19 @@
     <Color x:Key="Accent">#296B76</Color> <!-- Accent color from palette -->
 
     <!-- 
-    Base Colors
-    Fundamental colors used throughout the application
-    -->
-    <Color x:Key="White">#f8fafc</Color> <!-- Used for light backgrounds and dark text / Card Background Light -->
-    <Color x:Key="Black">#0f172a</Color> <!-- Used for dark backgrounds and light text -->
-    <Color x:Key="Magenta">#ec4899</Color> <!-- Used for accents and special UI elements -->
-    <Color x:Key="MidnightBlue">#1e40af</Color> <!-- Used for some UI elements in light theme -->
-    <Color x:Key="OffBlack">#212121</Color> <!-- Alternative dark color for dark theme / Card Background Dark -->
-
-    <!-- 
     Gray Scale
     Used for various UI elements, borders, and backgrounds
     -->
-    <Color x:Key="Gray100">#E1E1E1</Color> <!-- Very light gray, used for subtle backgrounds / Card Stroke Light -->
+    <Color x:Key="Gray100">#E1E1E1</Color>
+    <!-- Very light gray, used for subtle backgrounds / Card Stroke Light / Card Background Light -->
     <Color x:Key="Gray200">#C8C8C8</Color> <!--  / ContentPage Background Light -->
     <Color x:Key="Gray300">#ACACAC</Color> <!--  / Card Shadow Light -->
     <Color x:Key="Gray400">#919191</Color> <!--  / Button Shadow Light -->
     <Color x:Key="Gray500">#6E6E6E</Color>
     <Color x:Key="Gray600">#404040</Color> <!--  / Button Shadow Dark -->
     <Color x:Key="Gray800">#2B2B2B</Color> <!--  / Card Stroke Dark -->
-    <Color x:Key="Gray900">#212121</Color> <!-- Very dark gray, used for text / Card Shadow Dark -->
+    <Color x:Key="Gray900">#212121</Color>
+    <!-- Very dark gray, used for text / Card Shadow Dark / Card Background Dark -->
     <Color x:Key="Gray950">#141414</Color> <!-- Nearly black, used for dark elements / ContentPage Background Dark -->
 
     <!-- 
@@ -99,8 +91,6 @@
     <SolidColorBrush x:Key="TertiaryHoverBrush" Color="{StaticResource TertiaryHover}" />
     <SolidColorBrush x:Key="TertiaryLightBrush" Color="{StaticResource TertiaryLight}" />
     <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource Accent}" />
-    <SolidColorBrush x:Key="WhiteBrush" Color="{StaticResource White}" />
-    <SolidColorBrush x:Key="BlackBrush" Color="{StaticResource Black}" />
 
     <!-- Gray scale brushes -->
     <SolidColorBrush x:Key="Gray100Brush" Color="{StaticResource Gray100}" />
