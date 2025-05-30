@@ -1,19 +1,20 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="StatusSwift.MainPage"
              xmlns:viewmodel="clr-namespace:StatusSwift.ViewModel"
+             xmlns:views="clr-namespace:StatusSwift.Views"
              xmlns:tb="https://notifyicon.com/"
-             x:DataType="viewmodel:MainViewModel">
-    
-    <StackLayout Padding="20">
-        <!-- Big Button for Enable/Disable -->
+             x:DataType="viewmodel:MainViewModel"
+             BackgroundColor="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}">
+    <Grid RowDefinitions="*">
+        <!-- Taskbar Icon -->
         <tb:TaskbarIcon
             IconSource="Resources/AppIcon/appicon.ico"
-            x:Name="TrayIcon"
             LeftClickCommand="{Binding ShowWindowCommand}"
             NoLeftClickDelay="True"
-        >
+            ToolTipText="{Binding TrayTooltipText}">
             <FlyoutBase.ContextFlyout>
                 <MenuFlyout>
                     <MenuFlyoutItem Command="{Binding ToggleStatusSwiftActiveCommand}" Text="{Binding ButtonText}" />
@@ -23,11 +24,34 @@
                 </MenuFlyout>
             </FlyoutBase.ContextFlyout>
         </tb:TaskbarIcon>
-        
-        <Button Text="{Binding ButtonText}"
-                FontSize="35"
-                Command="{Binding ToggleStatusSwiftActiveCommand}"
-                HorizontalOptions="CenterAndExpand"
-                VerticalOptions="CenterAndExpand"/>
-    </StackLayout>
+
+        <!-- Main Content -->
+        <Grid Padding="25" VerticalOptions="Fill" HorizontalOptions="Fill">
+            <ContentView VerticalOptions="Center" HorizontalOptions="Center">
+                <Border
+                    StrokeShape="RoundRectangle 12,12,12,12"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource Gray900}}"
+                    Stroke="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource Gray800}}"
+                    StrokeThickness="1"
+                    Padding="20"
+                    Margin="10"
+                    HorizontalOptions="Center"
+                    MinimumWidthRequest="350"
+                    WidthRequest="350"
+                    MaximumWidthRequest="350">
+                    <Border.Shadow>
+                        <Shadow Brush="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray900}}"
+                                Offset="0,4"
+                                Radius="8" />
+                    </Border.Shadow>
+                    <!-- Dynamic Content based on IsActive state -->
+                    <Grid>
+                        <views:StatusActiveView BindingContext="{Binding}" IsVisible="{Binding IsActive}" />
+                        <views:StatusInactiveView BindingContext="{Binding}"
+                                                  IsVisible="{Binding IsActive, Converter={StaticResource InvertedBoolConverter}}" />
+                    </Grid>
+                </Border>
+            </ContentView>
+        </Grid>
+    </Grid>
 </ContentPage>

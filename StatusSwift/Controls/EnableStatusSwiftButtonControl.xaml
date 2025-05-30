@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StatusSwift.Controls.EnableStatusSwiftButtonControl"
+             x:Name="EnableStatusSwiftButton">
+    <Button
+        Text="Enable StatusSwift"
+        Command="{Binding ButtonCommand, Source={x:Reference EnableStatusSwiftButton}}"
+        WidthRequest="220"
+        HeightRequest="60"
+        BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+        TextColor="{AppThemeBinding Light={StaticResource SecondaryText}, Dark={StaticResource SecondaryDarkText}}" />
+</ContentView>

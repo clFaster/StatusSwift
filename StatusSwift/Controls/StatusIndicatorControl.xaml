@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:behaviors="clr-namespace:StatusSwift.Behaviors"
+             x:Class="StatusSwift.Controls.StatusIndicatorControl"
+             x:Name="statusIndicatorControl">
+
+    <StackLayout
+        VerticalOptions="Center"
+        HorizontalOptions="Center"
+        FlowDirection="LeftToRight"
+        Orientation="Horizontal"
+        Spacing="15">
+        <!-- Indicator -->
+        <Border
+            x:Name="StatusIndicator"
+            Style="{StaticResource StatusIndicatorActive}"
+            IsVisible="{Binding IsActive, Source={x:Reference statusIndicatorControl}}">
+            <Border.Behaviors>
+                <behaviors:PulseAnimationBehavior />
+            </Border.Behaviors>
+        </Border>
+        <Border
+            x:Name="StatusIndicatorInactive"
+            Style="{StaticResource StatusIndicator}"
+            IsVisible="{Binding IsActive, Source={x:Reference statusIndicatorControl}, Converter={StaticResource InvertedBoolConverter}}" />
+        <Label
+            Style="{StaticResource SubHeadline}"
+            Text="{Binding StatusText, Source={x:Reference statusIndicatorControl}}" />
+    </StackLayout>
+</ContentView>

@@ -1,43 +1,104 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <?xaml-comp compile="true" ?>
-<ResourceDictionary 
+
+<ResourceDictionary
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <!-- 
+    Button Colors - Primary color scheme
+    -->
+    <Color x:Key="Primary">#115270</Color>
+    <Color x:Key="PrimaryDark">#0D3B50</Color>
 
-    <Color x:Key="Primary">#0abdf5</Color>
-    <Color x:Key="PrimaryDark">#0abdf5</Color>
-    <Color x:Key="PrimaryDarkText">#242424</Color>
-    <Color x:Key="Secondary">#6C8AE1</Color>
-    <Color x:Key="SecondaryDarkText">#242424</Color>
-    <Color x:Key="Tertiary">#A44C9E</Color>
+    <Color x:Key="PrimaryText">#f8fafc</Color>
+    <Color x:Key="PrimaryDarkText">#f8fafc</Color>
 
-    <Color x:Key="White">#E6F4F1</Color>
-    <Color x:Key="Black">Black</Color>
-    <Color x:Key="Magenta">#AB276F</Color>
-    <Color x:Key="MidnightBlue">#8F6DC5</Color>
-    <Color x:Key="OffBlack">#212121</Color>
+    <Color x:Key="PrimaryHover">#296B76</Color>
+    <Color x:Key="PrimaryDarkHover">#296B76</Color>
 
+    <!-- 
+    Button Colors - Secondary color scheme
+    -->
+    <Color x:Key="Secondary">#5CAD79</Color>
+    <Color x:Key="SecondaryDark">#5CAD79</Color>
+
+    <Color x:Key="SecondaryText">#f8fafc</Color>
+    <Color x:Key="SecondaryDarkText">#f8fafc</Color>
+
+    <Color x:Key="SecondaryHover">#296B76</Color>
+    <Color x:Key="SecondaryDarkHover">#296B76</Color>
+
+    <!-- 
+    Button Colors - Tertiary color scheme
+    -->
+    <Color x:Key="Tertiary">#9BC3B6</Color>
+    <Color x:Key="TertiaryDark">#9BC3B6</Color>
+
+    <Color x:Key="TertiaryText">#f8fafc</Color>
+    <Color x:Key="TertiaryTextDark">#f8fafc</Color>
+
+    <Color x:Key="TertiaryHover">#62919B</Color>
+    <Color x:Key="TertiaryHoverDark">#62919B</Color>
+
+    <!--
+    Text Colors
+    -->
+    <Color x:Key="Title">#115270</Color> <!-- / Label Headline Text Light -->
+    <Color x:Key="TitleDark">#83CBEC</Color> <!-- / Label Headline Text Dark -->
+    <Color x:Key="SubTitle">#296B76</Color> <!-- / Label SubHeadline Text Light -->
+    <Color x:Key="SubTitleDark">#95D0DA</Color> <!-- / Label SubHeadline Text Dark -->
+    <Color x:Key="Body">#296B76</Color> <!-- / Label Default Text Light -->
+    <Color x:Key="BodyDark">#95D0DA</Color> <!-- / Label Default Text Dark -->
+
+    <!-- 
+    Additional generated shades for palette consistency
+    -->
+    <Color x:Key="PrimaryLight">#3A7A91</Color> <!-- Lighter than primary -->
+    <Color x:Key="SecondaryLight">#8FD1A7</Color> <!-- Lighter than secondary -->
+    <Color x:Key="TertiaryLight">#CFE6DF</Color> <!-- Lighter than tertiary -->
+    <Color x:Key="Accent">#296B76</Color> <!-- Accent color from palette -->
+
+    <!-- 
+    Gray Scale
+    Used for various UI elements, borders, and backgrounds
+    -->
     <Color x:Key="Gray100">#E1E1E1</Color>
-    <Color x:Key="Gray200">#C8C8C8</Color>
-    <Color x:Key="Gray300">#ACACAC</Color>
-    <Color x:Key="Gray400">#919191</Color>
+    <!-- Very light gray, used for subtle backgrounds / Card Stroke Light / Card Background Light -->
+    <Color x:Key="Gray200">#C8C8C8</Color> <!--  / ContentPage Background Light -->
+    <Color x:Key="Gray300">#ACACAC</Color> <!--  / Card Shadow Light -->
+    <Color x:Key="Gray400">#919191</Color> <!--  / Button Shadow Light -->
     <Color x:Key="Gray500">#6E6E6E</Color>
-    <Color x:Key="Gray600">#404040</Color>
+    <Color x:Key="Gray600">#404040</Color> <!--  / Button Shadow Dark -->
+    <Color x:Key="Gray800">#2B2B2B</Color> <!--  / Card Stroke Dark -->
     <Color x:Key="Gray900">#212121</Color>
-    <Color x:Key="Gray950">#141414</Color>
+    <!-- Very dark gray, used for text / Card Shadow Dark / Card Background Dark -->
+    <Color x:Key="Gray950">#141414</Color> <!-- Nearly black, used for dark elements / ContentPage Background Dark -->
 
-    <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}"/>
-    <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}"/>
-    <SolidColorBrush x:Key="TertiaryBrush" Color="{StaticResource Tertiary}"/>
-    <SolidColorBrush x:Key="WhiteBrush" Color="{StaticResource White}"/>
-    <SolidColorBrush x:Key="BlackBrush" Color="{StaticResource Black}"/>
+    <!-- 
+    Brush Resources
+    These brushes are defined for advanced styling scenarios where a brush is needed
+    instead of a direct color reference. These are available for potential use in 
+    specific UI scenarios like gradients, opacities, etc.
+    Updated to match new palette
+    -->
+    <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}" />
+    <SolidColorBrush x:Key="PrimaryHoverBrush" Color="{StaticResource PrimaryHover}" />
+    <SolidColorBrush x:Key="PrimaryLightBrush" Color="{StaticResource PrimaryLight}" />
+    <SolidColorBrush x:Key="PrimaryDarkBrush" Color="{StaticResource PrimaryDark}" />
+    <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}" />
+    <SolidColorBrush x:Key="SecondaryLightBrush" Color="{StaticResource SecondaryLight}" />
+    <SolidColorBrush x:Key="TertiaryBrush" Color="{StaticResource Tertiary}" />
+    <SolidColorBrush x:Key="TertiaryHoverBrush" Color="{StaticResource TertiaryHover}" />
+    <SolidColorBrush x:Key="TertiaryLightBrush" Color="{StaticResource TertiaryLight}" />
+    <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource Accent}" />
 
-    <SolidColorBrush x:Key="Gray100Brush" Color="{StaticResource Gray100}"/>
-    <SolidColorBrush x:Key="Gray200Brush" Color="{StaticResource Gray200}"/>
-    <SolidColorBrush x:Key="Gray300Brush" Color="{StaticResource Gray300}"/>
-    <SolidColorBrush x:Key="Gray400Brush" Color="{StaticResource Gray400}"/>
-    <SolidColorBrush x:Key="Gray500Brush" Color="{StaticResource Gray500}"/>
-    <SolidColorBrush x:Key="Gray600Brush" Color="{StaticResource Gray600}"/>
-    <SolidColorBrush x:Key="Gray900Brush" Color="{StaticResource Gray900}"/>
-    <SolidColorBrush x:Key="Gray950Brush" Color="{StaticResource Gray950}"/>
+    <!-- Gray scale brushes -->
+    <SolidColorBrush x:Key="Gray100Brush" Color="{StaticResource Gray100}" />
+    <SolidColorBrush x:Key="Gray200Brush" Color="{StaticResource Gray200}" />
+    <SolidColorBrush x:Key="Gray300Brush" Color="{StaticResource Gray300}" />
+    <SolidColorBrush x:Key="Gray400Brush" Color="{StaticResource Gray400}" />
+    <SolidColorBrush x:Key="Gray500Brush" Color="{StaticResource Gray500}" />
+    <SolidColorBrush x:Key="Gray600Brush" Color="{StaticResource Gray600}" />
+    <SolidColorBrush x:Key="Gray900Brush" Color="{StaticResource Gray900}" />
+    <SolidColorBrush x:Key="Gray950Brush" Color="{StaticResource Gray950}" />
 </ResourceDictionary>
