@@ -1,5 +1,9 @@
 name: Build Status Swift
 
+permissions:
+  contents: read
+  actions: read
+
 # Workflow triggers
 on: 
   workflow_dispatch:
