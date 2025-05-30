@@ -1,4 +1,5 @@
-﻿using System.Timers;
+﻿using System.Diagnostics;
+using System.Timers;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using H.NotifyIcon;
@@ -14,15 +15,14 @@ public partial class MainViewModel : ObservableObject
     private readonly ILogger<MainViewModel> _logger;
     private readonly IStatusSwiftService _statusSwiftService;
 
-    [ObservableProperty] private string _buttonText = "Enable StatusSwift";
+    private readonly Stopwatch _stopwatch = new();
 
+    [ObservableProperty] private string _buttonText = "Enable StatusSwift";
     private Timer? _elapsedTimer;
 
     [ObservableProperty] private string _elapsedTimeText = "00:00:00";
 
     [ObservableProperty] private bool _isActive;
-
-    private DateTime _startTime;
 
     [ObservableProperty] private string _trayTooltipText = "StatusSwift - Inactive";
 
@@ -60,7 +60,8 @@ public partial class MainViewModel : ObservableObject
         _statusSwiftService.StartStatusSwift();
 
         // Start tracking elapsed time
-        _startTime = DateTime.Now;
+        _stopwatch.Reset();
+        _stopwatch.Start();
         _elapsedTimer = new Timer(1000);
         _elapsedTimer.Elapsed += OnTimerElapsed!;
         _elapsedTimer.Start();
@@ -79,6 +80,7 @@ public partial class MainViewModel : ObservableObject
         _elapsedTimer?.Stop();
         _elapsedTimer?.Dispose();
         _elapsedTimer = null;
+        _stopwatch.Stop();
         ElapsedTimeText = "00:00:00";
         TrayTooltipText = "StatusSwift - Inactive";
         ButtonText = "Enable StatusSwift";
@@ -88,7 +90,7 @@ public partial class MainViewModel : ObservableObject
 
     private void OnTimerElapsed(object? sender, ElapsedEventArgs e)
     {
-        var elapsed = DateTime.Now - _startTime;
+        var elapsed = _stopwatch.Elapsed;
         var formattedTime = elapsed.ToString(@"hh\:mm\:ss");
 
         // Update on UI thread
