@@ -1,0 +1,6 @@
+{
+    "sonarlint.connectedMode.project": {
+        "connectionId": "clfaster",
+        "projectKey": "clFaster_StatusSwift"
+    }
+}
