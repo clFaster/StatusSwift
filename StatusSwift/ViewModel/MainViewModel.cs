@@ -112,8 +112,10 @@ public partial class MainViewModel : ObservableObject
     }
 
     [RelayCommand]
-    public static void ExitApplication()
+    public void ExitApplication()
     {
+        DisableStatusSwift();
+        _logger.LogInformation("Exiting application...");
         Application.Current?.Quit();
     }
 }
