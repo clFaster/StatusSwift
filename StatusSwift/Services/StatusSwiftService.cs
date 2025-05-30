@@ -10,23 +10,22 @@ public class StatusSwiftService(ILogger<MainViewModel> logger, IEventSimulator s
     private CancellationTokenSource? _cancellationTokenSource;
     private Timer? _timer;
 
-    public void ToggleTimer(bool statusSwiftActive)
+    /// <inheritdoc />
+    public void StartStatusSwift()
     {
-        if (statusSwiftActive)
-        {
-            logger.LogInformation("Start Timer");
-            _cancellationTokenSource = new CancellationTokenSource();
-
-            var interval = GetRandomSeconds();
-            _timer = new Timer(DoWork, _cancellationTokenSource.Token, TimeSpan.Zero, TimeSpan.FromSeconds(interval));
-        }
-        else
-        {
-            logger.LogInformation("Stop Timer");
-            _timer?.Dispose();
-            _cancellationTokenSource?.Dispose();
-            _timer = null;
-        }
+        logger.LogInformation("Start Status Swift");
+        _cancellationTokenSource = new CancellationTokenSource();
+        var interval = GetRandomSeconds();
+        _timer = new Timer(DoWork, _cancellationTokenSource.Token, TimeSpan.Zero, TimeSpan.FromSeconds(interval));
+    }
+    
+    /// <inheritdoc />
+    public void StopStatusSwift()
+    {
+        logger.LogInformation("Stop Status Swift");
+        _timer?.Dispose();
+        _cancellationTokenSource?.Dispose();
+        _timer = null;
     }
 
     private void DoWork(object? state)
@@ -34,7 +33,7 @@ public class StatusSwiftService(ILogger<MainViewModel> logger, IEventSimulator s
         if (((CancellationToken)state!).IsCancellationRequested) return;
 
         var interval = GetRandomSeconds();
-        logger.LogInformation("Move mouse, and schedule again in {Interval} seconds.", interval);
+        logger.LogInformation("Move mouse, and schedule again in {Interval} seconds", interval);
 
         // Simulate Mouse Move
         const short x = 10;

@@ -2,5 +2,6 @@
 
 public interface IStatusSwiftService
 {
-    void ToggleTimer(bool statusSwiftActive);
+    void StartStatusSwift();
+    void StopStatusSwift();
 }

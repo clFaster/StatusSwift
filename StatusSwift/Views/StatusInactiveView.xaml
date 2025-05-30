@@ -3,7 +3,8 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:StatusSwift.Controls"
-             x:Class="StatusSwift.Views.StatusInactiveView">
+             xmlns:viewModel="using:StatusSwift.ViewModel"
+             x:Class="StatusSwift.Views.StatusInactiveView" x:DataType="viewModel:MainViewModel">
     <VerticalStackLayout Spacing="20">
         <!-- App Header -->
         <controls:AppHeaderControl />
@@ -11,8 +12,7 @@
         <!-- Status Indicator -->
         <controls:StatusIndicatorControl
             IsActive="{Binding IsActive}" />        <!-- Action Button -->
-        <controls:EnableButtonControl
-            ButtonText="{Binding ButtonText}"
-            ButtonCommand="{Binding ToggleStatusSwiftActiveCommand}" />
+        <controls:EnableStatusSwiftButtonControl
+            ButtonCommand="{Binding EnableStatusSwiftCommand}" />
     </VerticalStackLayout>
 </ContentView>

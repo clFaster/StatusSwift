@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using H.NotifyIcon;
 using Microsoft.Extensions.Logging;
+using SharpHook;
 using StatusSwift.Services;
 using Timer = System.Timers.Timer;
 
@@ -10,11 +11,8 @@ namespace StatusSwift.ViewModel;
 
 public partial class MainViewModel : ObservableObject
 {
-    private static bool _statusSwiftActive;
-    private readonly ILogger<MainViewModel>? _logger;
-    private readonly IStatusSwiftService? _statusSwiftService;
-
-    [ObservableProperty] private string _buttonText = "Enable StatusSwift";
+    private readonly ILogger<MainViewModel> _logger;
+    private readonly IStatusSwiftService _statusSwiftService;
 
     private Timer? _elapsedTimer;
 
@@ -27,6 +25,9 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty] private string _trayTooltipText = "StatusSwift - Inactive";
 
     [ObservableProperty] private string _windowText = "Show Window";
+    
+    [ObservableProperty]
+    private string _buttonText = "Enable StatusSwift";
 
     // Main constructor for DI
     public MainViewModel(ILogger<MainViewModel> logger, IStatusSwiftService statusSwiftService)
@@ -39,38 +40,58 @@ public partial class MainViewModel : ObservableObject
     public MainViewModel()
     {
         // Constructor needed for design-time
+        _logger = LoggerFactory.Create(builder => builder.AddConsole()).CreateLogger<MainViewModel>();
+        _statusSwiftService = new StatusSwiftService(_logger, new EventSimulator());
     }
+
+    
 
     [RelayCommand]
     public void ToggleStatusSwiftActive()
     {
-        _statusSwiftActive = !_statusSwiftActive;
-        IsActive = _statusSwiftActive;
-        ButtonText = _statusSwiftActive ? "Disable StatusSwift" : "Enable StatusSwift";
-        _logger?.LogInformation("State switched to: {ButtonText}", ButtonText);
-        _statusSwiftService?.ToggleTimer(_statusSwiftActive);
-
-        if (_statusSwiftActive)
+        if (IsActive)
         {
-            // Start tracking elapsed time
-            _startTime = DateTime.Now;
-            _elapsedTimer = new Timer(1000);
-            _elapsedTimer.Elapsed += OnTimerElapsed!;
-            _elapsedTimer.Start();
-            ElapsedTimeText = "00:00:00";
-            TrayTooltipText = "StatusSwift - Active\nRunning for: 00:00:00";
+            DisableStatusSwift();
         }
         else
         {
-            // Stop tracking elapsed time
-            _elapsedTimer?.Stop();
-            _elapsedTimer?.Dispose();
-            _elapsedTimer = null;
-            ElapsedTimeText = "00:00:00";
-            TrayTooltipText = "StatusSwift - Inactive";
+            EnableStatusSwift();
         }
     }
 
+    [RelayCommand]
+    public void EnableStatusSwift()
+    {
+        IsActive = true;
+        _statusSwiftService.StartStatusSwift();
+
+        // Start tracking elapsed time
+        _startTime = DateTime.Now;
+        _elapsedTimer = new Timer(1000);
+        _elapsedTimer.Elapsed += OnTimerElapsed!;
+        _elapsedTimer.Start();
+        ElapsedTimeText = "00:00:00";
+        TrayTooltipText = "StatusSwift - Active\nRunning for: 00:00:00";
+        ButtonText = "Disable StatusSwift";
+    }
+    
+    [RelayCommand]
+    public void DisableStatusSwift()
+    {
+        IsActive = false;
+        _statusSwiftService.StopStatusSwift();
+
+        // Stop tracking elapsed time
+        _elapsedTimer?.Stop();
+        _elapsedTimer?.Dispose();
+        _elapsedTimer = null;
+        ElapsedTimeText = "00:00:00";
+        TrayTooltipText = "StatusSwift - Inactive";
+        ButtonText = "Enable StatusSwift";
+        
+        _logger.LogDebug("StatusSwift - Disabled");
+    }
+    
     private void OnTimerElapsed(object? sender, ElapsedEventArgs e)
     {
         var elapsed = DateTime.Now - _startTime;
@@ -97,7 +118,7 @@ public partial class MainViewModel : ObservableObject
     }
 
     [RelayCommand]
-    public void ExitApplication()
+    public static void ExitApplication()
     {
         Application.Current?.Quit();
     }
