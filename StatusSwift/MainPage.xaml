@@ -47,7 +47,8 @@
                     <!-- Dynamic Content based on IsActive state -->
                     <Grid>
                         <views:StatusActiveView BindingContext="{Binding}" IsVisible="{Binding IsActive}" />
-                        <views:StatusInactiveView BindingContext="{Binding}" IsVisible="{Binding IsActive, Converter={StaticResource InvertedBoolConverter}}" />
+                        <views:StatusInactiveView BindingContext="{Binding}"
+                                                  IsVisible="{Binding IsActive, Converter={StaticResource InvertedBoolConverter}}" />
                     </Grid>
                 </Border>
             </ContentView>

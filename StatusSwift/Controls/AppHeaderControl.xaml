@@ -11,7 +11,7 @@
             FontAttributes="Bold"
             HorizontalOptions="Center"
             TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}" />
-            <Label
+        <Label
             Text="{Binding AppSubtitle, Source={x:Reference appHeaderControl}}"
             FontSize="14"
             HorizontalOptions="Center"

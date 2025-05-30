@@ -18,7 +18,7 @@ public class StatusSwiftService(ILogger<MainViewModel> logger, IEventSimulator s
         var interval = GetRandomSeconds();
         _timer = new Timer(DoWork, _cancellationTokenSource.Token, TimeSpan.Zero, TimeSpan.FromSeconds(interval));
     }
-    
+
     /// <inheritdoc />
     public void StopStatusSwift()
     {

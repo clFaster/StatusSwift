@@ -14,6 +14,8 @@ public partial class MainViewModel : ObservableObject
     private readonly ILogger<MainViewModel> _logger;
     private readonly IStatusSwiftService _statusSwiftService;
 
+    [ObservableProperty] private string _buttonText = "Enable StatusSwift";
+
     private Timer? _elapsedTimer;
 
     [ObservableProperty] private string _elapsedTimeText = "00:00:00";
@@ -25,9 +27,6 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty] private string _trayTooltipText = "StatusSwift - Inactive";
 
     [ObservableProperty] private string _windowText = "Show Window";
-    
-    [ObservableProperty]
-    private string _buttonText = "Enable StatusSwift";
 
     // Main constructor for DI
     public MainViewModel(ILogger<MainViewModel> logger, IStatusSwiftService statusSwiftService)
@@ -44,19 +43,14 @@ public partial class MainViewModel : ObservableObject
         _statusSwiftService = new StatusSwiftService(_logger, new EventSimulator());
     }
 
-    
 
     [RelayCommand]
     public void ToggleStatusSwiftActive()
     {
         if (IsActive)
-        {
             DisableStatusSwift();
-        }
         else
-        {
             EnableStatusSwift();
-        }
     }
 
     [RelayCommand]
@@ -74,7 +68,7 @@ public partial class MainViewModel : ObservableObject
         TrayTooltipText = "StatusSwift - Active\nRunning for: 00:00:00";
         ButtonText = "Disable StatusSwift";
     }
-    
+
     [RelayCommand]
     public void DisableStatusSwift()
     {
@@ -88,10 +82,10 @@ public partial class MainViewModel : ObservableObject
         ElapsedTimeText = "00:00:00";
         TrayTooltipText = "StatusSwift - Inactive";
         ButtonText = "Enable StatusSwift";
-        
+
         _logger.LogDebug("StatusSwift - Disabled");
     }
-    
+
     private void OnTimerElapsed(object? sender, ElapsedEventArgs e)
     {
         var elapsed = DateTime.Now - _startTime;

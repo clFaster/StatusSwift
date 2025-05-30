@@ -3,7 +3,7 @@
 
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">    
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <!-- 
     Brand Colors - Primary color scheme
     -->
@@ -15,7 +15,7 @@
 
     <Color x:Key="PrimaryHover">#296B76</Color>
     <Color x:Key="PrimaryDarkHover">#296B76</Color>
-    
+
     <!-- 
     Brand Colors - Secondary color scheme
     -->
@@ -27,7 +27,7 @@
 
     <Color x:Key="SecondaryHover">#296B76</Color>
     <Color x:Key="SecondaryDarkHover">#296B76</Color>
-    
+
     <!-- 
     Brand Colors - Tertiary color scheme
     -->
