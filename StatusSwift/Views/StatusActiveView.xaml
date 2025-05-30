@@ -10,10 +10,12 @@
         <controls:AppHeaderControl />
         <!-- Status Indicator -->
         <controls:StatusIndicatorControl
-            IsActive="{Binding IsActive}" />        <!-- Timer Display -->
+            IsActive="{Binding IsActive}" />
+        <!-- Timer Display -->
         <controls:TimerDisplayControl
             TimerVisible="{Binding IsActive}"
-            ElapsedTime="{Binding ElapsedTimeText}" />        <!-- Action Button -->
+            ElapsedTime="{Binding ElapsedTimeText}" />
+        <!-- Action Button -->
         <controls:DisableStatusSwiftButtonControl
             ButtonCommand="{Binding DisableStatusSwiftCommand}" />
     </VerticalStackLayout>

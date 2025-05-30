@@ -7,7 +7,7 @@
     <VerticalStackLayout
         HorizontalOptions="Center">
         <Label
-            Text="{Binding TimerLabel, Source={x:Reference timerDisplayControl}}"/>
+            Text="{Binding TimerLabel, Source={x:Reference timerDisplayControl}}" />
 
         <Border
             StrokeShape="RoundRectangle 8,8,8,8"
@@ -18,7 +18,7 @@
             Margin="0,7,0,5">
             <Label
                 Style="{StaticResource TimerDisplayLabel}"
-                Text="{Binding ElapsedTime, Source={x:Reference timerDisplayControl}}"/>
+                Text="{Binding ElapsedTime, Source={x:Reference timerDisplayControl}}" />
         </Border>
     </VerticalStackLayout>
 </ContentView>

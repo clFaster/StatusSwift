@@ -4,11 +4,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="StatusSwift.Controls.StatusIndicatorControl"
              x:Name="statusIndicatorControl">
-    <StackLayout 
-        VerticalOptions="Center" 
-        HorizontalOptions="Center" 
-        FlowDirection="LeftToRight" 
-        Orientation="Horizontal" 
+    <StackLayout
+        VerticalOptions="Center"
+        HorizontalOptions="Center"
+        FlowDirection="LeftToRight"
+        Orientation="Horizontal"
         Spacing="15">
         <!-- Indicator -->
         <Border
@@ -26,6 +26,6 @@
         </Border>
         <Label
             Style="{StaticResource SubHeadline}"
-            Text="{Binding StatusText, Source={x:Reference statusIndicatorControl}}"/>
+            Text="{Binding StatusText, Source={x:Reference statusIndicatorControl}}" />
     </StackLayout>
 </ContentView>

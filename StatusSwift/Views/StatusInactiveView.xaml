@@ -8,10 +8,10 @@
     <VerticalStackLayout Spacing="20">
         <!-- App Header -->
         <controls:AppHeaderControl />
-
         <!-- Status Indicator -->
         <controls:StatusIndicatorControl
-            IsActive="{Binding IsActive}" />        <!-- Action Button -->
+            IsActive="{Binding IsActive}" />
+        <!-- Action Button -->
         <controls:EnableStatusSwiftButtonControl
             ButtonCommand="{Binding EnableStatusSwiftCommand}" />
     </VerticalStackLayout>

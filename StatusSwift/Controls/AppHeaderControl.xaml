@@ -6,8 +6,8 @@
              x:Name="appHeaderControl">
     <VerticalStackLayout HorizontalOptions="Center" Spacing="0" Margin="0,0,0,10">
         <Label Style="{StaticResource Headline}"
-            Text="{Binding AppTitle, Source={x:Reference appHeaderControl}}" />
+               Text="{Binding AppTitle, Source={x:Reference appHeaderControl}}" />
         <Label Style="{StaticResource SubSubHeadline}"
-            Text="{Binding AppSubtitle, Source={x:Reference appHeaderControl}}"/>
+               Text="{Binding AppSubtitle, Source={x:Reference appHeaderControl}}" />
     </VerticalStackLayout>
 </ContentView>
