@@ -5,7 +5,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <!-- 
-    Brand Colors - Primary color scheme
+    Button Colors - Primary color scheme
     -->
     <Color x:Key="Primary">#115270</Color>
     <Color x:Key="PrimaryDark">#0D3B50</Color>
@@ -17,7 +17,7 @@
     <Color x:Key="PrimaryDarkHover">#296B76</Color>
 
     <!-- 
-    Brand Colors - Secondary color scheme
+    Button Colors - Secondary color scheme
     -->
     <Color x:Key="Secondary">#5CAD79</Color>
     <Color x:Key="SecondaryDark">#5CAD79</Color>
@@ -29,7 +29,7 @@
     <Color x:Key="SecondaryDarkHover">#296B76</Color>
 
     <!-- 
-    Brand Colors - Tertiary color scheme
+    Button Colors - Tertiary color scheme
     -->
     <Color x:Key="Tertiary">#9BC3B6</Color>
     <Color x:Key="TertiaryDark">#9BC3B6</Color>
@@ -39,6 +39,16 @@
 
     <Color x:Key="TertiaryHover">#62919B</Color>
     <Color x:Key="TertiaryHoverDark">#62919B</Color>
+
+    <!--
+    Text Colors
+    -->
+    <Color x:Key="Title">#115270</Color> <!-- / Label Headline Text Light -->
+    <Color x:Key="TitleDark">#83CBEC</Color> <!-- / Label Headline Text Dark -->
+    <Color x:Key="SubTitle">#296B76</Color> <!-- / Label SubHeadline Text Light -->
+    <Color x:Key="SubTitleDark">#95D0DA</Color> <!-- / Label SubHeadline Text Dark -->
+    <Color x:Key="Body">#296B76</Color> <!-- / Label Default Text Light -->
+    <Color x:Key="BodyDark">#95D0DA</Color> <!-- / Label Default Text Dark -->
 
     <!-- 
     Additional generated shades for palette consistency

@@ -5,31 +5,20 @@
              x:Class="StatusSwift.Controls.TimerDisplayControl"
              x:Name="timerDisplayControl">
     <VerticalStackLayout
-        IsVisible="{Binding TimerVisible, Source={x:Reference timerDisplayControl}}"
-        HorizontalOptions="Center"
-        Margin="0,10,0,10">
+        HorizontalOptions="Center">
         <Label
-            Text="{Binding TimerLabel, Source={x:Reference timerDisplayControl}}"
-            FontSize="16"
-            HorizontalOptions="Center"
-            TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray400}}" />
+            Text="{Binding TimerLabel, Source={x:Reference timerDisplayControl}}"/>
 
         <Border
             StrokeShape="RoundRectangle 8,8,8,8"
-            BackgroundColor="{AppThemeBinding Light=#f0f0f0, Dark=#1e1e1e}"
-            Stroke="{AppThemeBinding Light=#d0d0d0, Dark=#333333}"
-            StrokeThickness="1"
-            Padding="15,10"
-            Margin="0,5,0,0"
-            HorizontalOptions="Center">
+            BackgroundColor="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource Gray900}}"
+            Stroke="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource Gray800}}"
+            StrokeThickness="3"
+            Padding="15,10,15,6"
+            Margin="0,7,0,5">
             <Label
-                Text="{Binding ElapsedTime, Source={x:Reference timerDisplayControl}}"
-                FontSize="32"
-                FontFamily="Monospace"
-                FontAttributes="Bold"
-                HorizontalOptions="Center"
-                VerticalOptions="Center"
-                TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}" />
+                Style="{StaticResource TimerDisplayLabel}"
+                Text="{Binding ElapsedTime, Source={x:Reference timerDisplayControl}}"/>
         </Border>
     </VerticalStackLayout>
 </ContentView>

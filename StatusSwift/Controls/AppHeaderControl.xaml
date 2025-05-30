@@ -5,16 +5,9 @@
              x:Class="StatusSwift.Controls.AppHeaderControl"
              x:Name="appHeaderControl">
     <VerticalStackLayout HorizontalOptions="Center" Spacing="0" Margin="0,0,0,10">
-        <Label
-            Text="{Binding AppTitle, Source={x:Reference appHeaderControl}}"
-            FontSize="26"
-            FontAttributes="Bold"
-            HorizontalOptions="Center"
-            TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}" />
-        <Label
-            Text="{Binding AppSubtitle, Source={x:Reference appHeaderControl}}"
-            FontSize="14"
-            HorizontalOptions="Center"
-            TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray400}}" />
+        <Label Style="{StaticResource Headline}"
+            Text="{Binding AppTitle, Source={x:Reference appHeaderControl}}" />
+        <Label Style="{StaticResource SubSubHeadline}"
+            Text="{Binding AppSubtitle, Source={x:Reference appHeaderControl}}"/>
     </VerticalStackLayout>
 </ContentView>

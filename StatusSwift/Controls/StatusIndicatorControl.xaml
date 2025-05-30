@@ -4,15 +4,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="StatusSwift.Controls.StatusIndicatorControl"
              x:Name="statusIndicatorControl">
-    <Grid ColumnDefinitions="Auto,*" VerticalOptions="Center" HorizontalOptions="Center">
+    <StackLayout 
+        VerticalOptions="Center" 
+        HorizontalOptions="Center" 
+        FlowDirection="LeftToRight" 
+        Orientation="Horizontal" 
+        Spacing="15">
+        <!-- Indicator -->
         <Border
             x:Name="StatusIndicator"
-            WidthRequest="16"
-            HeightRequest="16"
-            StrokeThickness="0"
-            StrokeShape="Ellipse"
-            BackgroundColor="{Binding IndicatorColor, Source={x:Reference statusIndicatorControl}}"
-            Margin="0,0,10,0">
+            Style="{StaticResource StatusIndicator}"
+
+            BackgroundColor="{Binding IndicatorColor, Source={x:Reference statusIndicatorControl}}">
             <Border.Shadow>
                 <Shadow
                     Brush="{Binding IndicatorColor, Source={x:Reference statusIndicatorControl}}"
@@ -22,10 +25,7 @@
             </Border.Shadow>
         </Border>
         <Label
-            Grid.Column="1"
-            Text="{Binding StatusText, Source={x:Reference statusIndicatorControl}}"
-            FontSize="18"
-            FontAttributes="Bold"
-            VerticalOptions="Center" />
-    </Grid>
+            Style="{StaticResource SubHeadline}"
+            Text="{Binding StatusText, Source={x:Reference statusIndicatorControl}}"/>
+    </StackLayout>
 </ContentView>
