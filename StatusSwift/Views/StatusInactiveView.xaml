@@ -10,12 +10,9 @@
 
         <!-- Status Indicator -->
         <controls:StatusIndicatorControl
-            IsActive="{Binding IsActive}" />
-
-        <!-- Action Button -->
-        <controls:ActionButtonControl
+            IsActive="{Binding IsActive}" />        <!-- Action Button -->
+        <controls:EnableButtonControl
             ButtonText="{Binding ButtonText}"
-            ButtonCommand="{Binding ToggleStatusSwiftActiveCommand}"
-            IsActiveState="{Binding IsActive}" />
+            ButtonCommand="{Binding ToggleStatusSwiftActiveCommand}" />
     </VerticalStackLayout>
 </ContentView>

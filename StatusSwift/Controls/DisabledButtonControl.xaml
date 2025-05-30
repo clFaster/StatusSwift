@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StatusSwift.Controls.DisabledButtonControl"
+             x:Name="disabledButtonControl">
+    <Button
+        x:Name="DisabledButton"
+        Text="{Binding ButtonText, Source={x:Reference disabledButtonControl}}"
+        Command="{Binding ButtonCommand, Source={x:Reference disabledButtonControl}}"
+        WidthRequest="220"
+        HeightRequest="60"
+        BackgroundColor="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource SecondaryDark}}"
+        TextColor="{AppThemeBinding Light={StaticResource PrimaryText}, Dark={StaticResource PrimaryDarkText}}">
+    </Button>
+</ContentView>

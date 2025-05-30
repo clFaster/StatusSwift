@@ -3,36 +3,96 @@
 
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">    <Color x:Key="Primary">#6366f1</Color>
-    <Color x:Key="PrimaryDark">#4338ca</Color>
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">    
+    <!-- 
+    Brand Colors - Primary color scheme
+    -->
+    <Color x:Key="Primary">#115270</Color>
+    <Color x:Key="PrimaryDark">#0D3B50</Color>
+
+    <Color x:Key="PrimaryText">#f8fafc</Color>
     <Color x:Key="PrimaryDarkText">#f8fafc</Color>
-    <Color x:Key="PrimaryHover">#5855eb</Color>
-    <Color x:Key="Secondary">#8b5cf6</Color>
+
+    <Color x:Key="PrimaryHover">#296B76</Color>
+    <Color x:Key="PrimaryDarkHover">#296B76</Color>
+    
+    <!-- 
+    Brand Colors - Secondary color scheme
+    -->
+    <Color x:Key="Secondary">#5CAD79</Color>
+    <Color x:Key="SecondaryDark">#5CAD79</Color>
+
+    <Color x:Key="SecondaryText">#f8fafc</Color>
     <Color x:Key="SecondaryDarkText">#f8fafc</Color>
-    <Color x:Key="Tertiary">#a855f7</Color>
-    <Color x:Key="TertiaryHover">#9333ea</Color>
 
-    <Color x:Key="White">#f8fafc</Color>
-    <Color x:Key="Black">#0f172a</Color>
-    <Color x:Key="Magenta">#ec4899</Color>
-    <Color x:Key="MidnightBlue">#1e40af</Color>
-    <Color x:Key="OffBlack">#212121</Color>
+    <Color x:Key="SecondaryHover">#296B76</Color>
+    <Color x:Key="SecondaryDarkHover">#296B76</Color>
+    
+    <!-- 
+    Brand Colors - Tertiary color scheme
+    -->
+    <Color x:Key="Tertiary">#9BC3B6</Color>
+    <Color x:Key="TertiaryDark">#9BC3B6</Color>
 
-    <Color x:Key="Gray100">#E1E1E1</Color>
-    <Color x:Key="Gray200">#C8C8C8</Color>
-    <Color x:Key="Gray300">#ACACAC</Color>
-    <Color x:Key="Gray400">#919191</Color>
+    <Color x:Key="TertiaryText">#f8fafc</Color>
+    <Color x:Key="TertiaryTextDark">#f8fafc</Color>
+
+    <Color x:Key="TertiaryHover">#62919B</Color>
+    <Color x:Key="TertiaryHoverDark">#62919B</Color>
+
+    <!-- 
+    Additional generated shades for palette consistency
+    -->
+    <Color x:Key="PrimaryLight">#3A7A91</Color> <!-- Lighter than primary -->
+    <Color x:Key="SecondaryLight">#8FD1A7</Color> <!-- Lighter than secondary -->
+    <Color x:Key="TertiaryLight">#CFE6DF</Color> <!-- Lighter than tertiary -->
+    <Color x:Key="Accent">#296B76</Color> <!-- Accent color from palette -->
+
+    <!-- 
+    Base Colors
+    Fundamental colors used throughout the application
+    -->
+    <Color x:Key="White">#f8fafc</Color> <!-- Used for light backgrounds and dark text / Card Background Light -->
+    <Color x:Key="Black">#0f172a</Color> <!-- Used for dark backgrounds and light text -->
+    <Color x:Key="Magenta">#ec4899</Color> <!-- Used for accents and special UI elements -->
+    <Color x:Key="MidnightBlue">#1e40af</Color> <!-- Used for some UI elements in light theme -->
+    <Color x:Key="OffBlack">#212121</Color> <!-- Alternative dark color for dark theme / Card Background Dark -->
+
+    <!-- 
+    Gray Scale
+    Used for various UI elements, borders, and backgrounds
+    -->
+    <Color x:Key="Gray100">#E1E1E1</Color> <!-- Very light gray, used for subtle backgrounds / Card Stroke Light -->
+    <Color x:Key="Gray200">#C8C8C8</Color> <!--  / ContentPage Background Light -->
+    <Color x:Key="Gray300">#ACACAC</Color> <!--  / Card Shadow Light -->
+    <Color x:Key="Gray400">#919191</Color> <!--  / Button Shadow Light -->
     <Color x:Key="Gray500">#6E6E6E</Color>
-    <Color x:Key="Gray600">#404040</Color>
-    <Color x:Key="Gray900">#212121</Color>
-    <Color x:Key="Gray950">#141414</Color>    <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}" />
+    <Color x:Key="Gray600">#404040</Color> <!--  / Button Shadow Dark -->
+    <Color x:Key="Gray800">#2B2B2B</Color> <!--  / Card Stroke Dark -->
+    <Color x:Key="Gray900">#212121</Color> <!-- Very dark gray, used for text / Card Shadow Dark -->
+    <Color x:Key="Gray950">#141414</Color> <!-- Nearly black, used for dark elements / ContentPage Background Dark -->
+
+    <!-- 
+    Brush Resources
+    These brushes are defined for advanced styling scenarios where a brush is needed
+    instead of a direct color reference. These are available for potential use in 
+    specific UI scenarios like gradients, opacities, etc.
+    Updated to match new palette
+    -->
+    <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}" />
     <SolidColorBrush x:Key="PrimaryHoverBrush" Color="{StaticResource PrimaryHover}" />
+    <SolidColorBrush x:Key="PrimaryLightBrush" Color="{StaticResource PrimaryLight}" />
+    <SolidColorBrush x:Key="PrimaryDarkBrush" Color="{StaticResource PrimaryDark}" />
     <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}" />
+    <SolidColorBrush x:Key="SecondaryLightBrush" Color="{StaticResource SecondaryLight}" />
     <SolidColorBrush x:Key="TertiaryBrush" Color="{StaticResource Tertiary}" />
     <SolidColorBrush x:Key="TertiaryHoverBrush" Color="{StaticResource TertiaryHover}" />
+    <SolidColorBrush x:Key="TertiaryLightBrush" Color="{StaticResource TertiaryLight}" />
+    <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource Accent}" />
     <SolidColorBrush x:Key="WhiteBrush" Color="{StaticResource White}" />
     <SolidColorBrush x:Key="BlackBrush" Color="{StaticResource Black}" />
 
+    <!-- Gray scale brushes -->
     <SolidColorBrush x:Key="Gray100Brush" Color="{StaticResource Gray100}" />
     <SolidColorBrush x:Key="Gray200Brush" Color="{StaticResource Gray200}" />
     <SolidColorBrush x:Key="Gray300Brush" Color="{StaticResource Gray300}" />

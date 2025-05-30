@@ -12,11 +12,9 @@
             IsActive="{Binding IsActive}" />        <!-- Timer Display -->
         <controls:TimerDisplayControl
             TimerVisible="{Binding IsActive}"
-            ElapsedTime="{Binding ElapsedTimeText}" />
-        <!-- Action Button -->
-        <controls:ActionButtonControl
+            ElapsedTime="{Binding ElapsedTimeText}" />        <!-- Action Button -->
+        <controls:DisabledButtonControl
             ButtonText="{Binding ButtonText}"
-            ButtonCommand="{Binding ToggleStatusSwiftActiveCommand}"
-            IsActiveState="{Binding IsActive}" />
+            ButtonCommand="{Binding ToggleStatusSwiftActiveCommand}" />
     </VerticalStackLayout>
 </ContentView>

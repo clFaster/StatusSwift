@@ -7,7 +7,7 @@
              xmlns:views="clr-namespace:StatusSwift.Views"
              xmlns:tb="https://notifyicon.com/"
              x:DataType="viewmodel:MainViewModel"
-             BackgroundColor="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource Gray950}}">
+             BackgroundColor="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}">
 
     <Grid RowDefinitions="*">
         <!-- Taskbar Icon -->
@@ -29,20 +29,20 @@
 
         <!-- Main Content -->
         <Grid Padding="25" VerticalOptions="Fill" HorizontalOptions="Fill">
-            <ScrollView VerticalOptions="Center" HorizontalOptions="Center">
+            <ContentView VerticalOptions="Center" HorizontalOptions="Center">
                 <Border
                     StrokeShape="RoundRectangle 12,12,12,12"
-                    BackgroundColor="{AppThemeBinding Light=White, Dark=#222222}"
-                    Stroke="{AppThemeBinding Light=#e0e0e0, Dark=#333333}"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource OffBlack}}"
+                    Stroke="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource Gray800}}"
                     StrokeThickness="1"
                     Padding="20"
                     Margin="10"
                     HorizontalOptions="Center"
-                    MinimumWidthRequest="300"
+                    MinimumWidthRequest="350"
                     WidthRequest="350"
-                    MaximumWidthRequest="450">
+                    MaximumWidthRequest="350">
                     <Border.Shadow>
-                        <Shadow Brush="#40000000"
+                        <Shadow Brush="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray900}}"
                                 Offset="0,4"
                                 Radius="8" />
                     </Border.Shadow>
@@ -74,7 +74,7 @@
                         </ContentView.Triggers>
                     </ContentView>
                 </Border>
-            </ScrollView>
+            </ContentView>
         </Grid>
     </Grid>
 </ContentPage>
