@@ -37,7 +37,7 @@ StatusSwift works by simulating small mouse movements at random intervals betwee
 ## System Requirements
 
 - Windows 10/11
-- .NET 8.0 or higher
+- .NET 10.0 or higher
 
 ## Privacy & Security
 
