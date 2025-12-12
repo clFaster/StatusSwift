@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="StatusSwift/StatusSwift.csproj">
+    <Deploy />
+  </Project>
+</Solution>
