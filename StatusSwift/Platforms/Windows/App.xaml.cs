@@ -6,16 +6,17 @@ using Microsoft.UI.Windowing;
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
+// ReSharper disable once CheckNamespace
 namespace StatusSwift.WinUI;
 
 /// <summary>
-///     Provides application-specific behavior to supplement the default Application class.
+/// Provides application-specific behavior to supplement the default Application class.
 /// </summary>
-public partial class App : MauiWinUIApplication
+public partial class App
 {
     /// <summary>
-    ///     Initializes the singleton application object.  This is the first line of authored code
-    ///     executed, and as such is the logical equivalent of main() or WinMain().
+    /// Initializes the singleton application object.  This is the first line of authored code
+    /// executed, and as such is the logical equivalent of main() or WinMain().
     /// </summary>
     public App()
     {
@@ -32,9 +33,10 @@ public partial class App : MauiWinUIApplication
                     if (!args.DidPresenterChange ||
                         overlappedPresenter.State != OverlappedPresenterState.Minimized) return;
 
-                    var window = Microsoft.Maui.Controls.Application.Current?.MainPage?.Window;
-                    if (window == null) return;
-                    window.Hide();
+                    if (view is Window window)
+                    {
+                        window.Hide();
+                    }
                 };
         });
     }

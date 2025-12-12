@@ -17,16 +17,37 @@ public partial class MainViewModel : ObservableObject
 
     private readonly Stopwatch _stopwatch = new();
 
-    [ObservableProperty] private string _buttonText = "Enable StatusSwift";
     private Timer? _elapsedTimer;
 
-    [ObservableProperty] private string _elapsedTimeText = "00:00:00";
+    public string ButtonText
+    {
+        get;
+        private set => SetProperty(ref field, value);
+    } = "Enable StatusSwift";
 
-    [ObservableProperty] private bool _isActive;
+    public string ElapsedTimeText
+    {
+        get;
+        private set => SetProperty(ref field, value);
+    } = "00:00:00";
 
-    [ObservableProperty] private string _trayTooltipText = "StatusSwift - Inactive";
+    public bool IsActive
+    {
+        get;
+        private set => SetProperty(ref field, value);
+    }
 
-    [ObservableProperty] private string _windowText = "Show Window";
+    public string TrayTooltipText
+    {
+        get;
+        private set => SetProperty(ref field, value);
+    } = "StatusSwift - Inactive";
+
+    public string WindowText
+    {
+        get;
+        private set => SetProperty(ref field, value);
+    } = "Show Window";
 
     // Main constructor for DI
     public MainViewModel(ILogger<MainViewModel> logger, IStatusSwiftService statusSwiftService)
@@ -39,13 +60,17 @@ public partial class MainViewModel : ObservableObject
     public MainViewModel()
     {
         // Constructor needed for design-time
-        _logger = LoggerFactory.Create(builder => builder.AddConsole()).CreateLogger<MainViewModel>();
-        _statusSwiftService = new StatusSwiftService(_logger, new EventSimulator());
+        var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
+        _logger = loggerFactory.CreateLogger<MainViewModel>();
+        _statusSwiftService = new StatusSwiftService(
+            loggerFactory.CreateLogger<StatusSwiftService>(),
+            new EventSimulator(),
+            TimeProvider.System);
     }
 
 
     [RelayCommand]
-    public void ToggleStatusSwiftActive()
+    private void ToggleStatusSwiftActive()
     {
         if (IsActive)
             DisableStatusSwift();
@@ -54,7 +79,7 @@ public partial class MainViewModel : ObservableObject
     }
 
     [RelayCommand]
-    public void EnableStatusSwift()
+    private void EnableStatusSwift()
     {
         IsActive = true;
         _statusSwiftService.StartStatusSwift();
@@ -63,7 +88,7 @@ public partial class MainViewModel : ObservableObject
         _stopwatch.Reset();
         _stopwatch.Start();
         _elapsedTimer = new Timer(1000);
-        _elapsedTimer.Elapsed += OnTimerElapsed!;
+        _elapsedTimer.Elapsed += OnTimerElapsed;
         _elapsedTimer.Start();
         ElapsedTimeText = "00:00:00";
         TrayTooltipText = "StatusSwift - Active\nRunning for: 00:00:00";
@@ -71,7 +96,7 @@ public partial class MainViewModel : ObservableObject
     }
 
     [RelayCommand]
-    public void DisableStatusSwift()
+    private void DisableStatusSwift()
     {
         IsActive = false;
         _statusSwiftService.StopStatusSwift();
@@ -102,9 +127,9 @@ public partial class MainViewModel : ObservableObject
     }
 
     [RelayCommand]
-    public void ShowWindow()
+    private void ShowWindow()
     {
-        var window = Application.Current?.MainPage?.Window;
+        var window = Application.Current?.Windows.FirstOrDefault();
         if (window == null) return;
 
         window.Show();
@@ -114,7 +139,7 @@ public partial class MainViewModel : ObservableObject
     }
 
     [RelayCommand]
-    public void ExitApplication()
+    private void ExitApplication()
     {
         DisableStatusSwift();
         _logger.LogInformation("Exiting application...");

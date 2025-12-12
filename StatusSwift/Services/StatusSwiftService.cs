@@ -1,54 +1,78 @@
 ﻿using Microsoft.Extensions.Logging;
 using SharpHook;
 using StatusSwift.BO;
-using StatusSwift.ViewModel;
 
 namespace StatusSwift.Services;
 
-public class StatusSwiftService(ILogger<MainViewModel> logger, IEventSimulator simulator) : IStatusSwiftService
+public sealed class StatusSwiftService(
+    ILogger<StatusSwiftService> logger,
+    IEventSimulator simulator,
+    TimeProvider timeProvider) : IStatusSwiftService
 {
     private CancellationTokenSource? _cancellationTokenSource;
-    private Timer? _timer;
 
     /// <inheritdoc />
     public void StartStatusSwift()
     {
+        if (_cancellationTokenSource is not null)
+        {
+            logger.LogDebug("Start Status Swift ignored (already running)");
+            return;
+        }
+
         logger.LogInformation("Start Status Swift");
         _cancellationTokenSource = new CancellationTokenSource();
-        var interval = GetRandomSeconds();
-        _timer = new Timer(DoWork, _cancellationTokenSource.Token, TimeSpan.Zero, TimeSpan.FromSeconds(interval));
+        _ = RunAsync(_cancellationTokenSource.Token);
     }
 
     /// <inheritdoc />
     public void StopStatusSwift()
     {
         logger.LogInformation("Stop Status Swift");
-        _timer?.Dispose();
-        _cancellationTokenSource?.Dispose();
-        _timer = null;
+
+        var cts = Interlocked.Exchange(ref _cancellationTokenSource, null);
+        if (cts is null)
+        {
+            return;
+        }
+
+        cts.Cancel();
+        cts.Dispose();
     }
 
-    private void DoWork(object? state)
+    private async Task RunAsync(CancellationToken cancellationToken)
     {
-        if (((CancellationToken)state!).IsCancellationRequested) return;
+        try
+        {
+            while (!cancellationToken.IsCancellationRequested)
+            {
+                var interval = GetRandomSeconds();
+                logger.LogInformation("Move mouse, and schedule again in {Interval} seconds", interval);
 
-        var interval = GetRandomSeconds();
-        logger.LogInformation("Move mouse, and schedule again in {Interval} seconds", interval);
+                // Simulate Mouse Move
+                const short x = 10;
+                const short y = 10;
+                simulator.SimulateMouseMovementRelative(x, y);
+                simulator.SimulateMouseMovementRelative(-x, -y);
 
-        // Simulate Mouse Move
-        const short x = 10;
-        const short y = 10;
-        simulator.SimulateMouseMovementRelative(x, y);
-        simulator.SimulateMouseMovementRelative(-x, -y);
-
-        _timer?.Change(TimeSpan.FromSeconds(interval), TimeSpan.FromSeconds(interval));
+                await Task.Delay(TimeSpan.FromSeconds(interval), timeProvider, cancellationToken);
+            }
+        }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
+            // Expected during StopStatusSwift
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "StatusSwift background loop failed");
+            StopStatusSwift();
+        }
     }
 
     private static int GetRandomSeconds()
     {
-        var random = new Random();
-        var interval = random.Next(Preferences.Default.Get(PreferenceKeys.Min_time, 30),
-            Preferences.Default.Get(PreferenceKeys.Max_time, 181));
-        return interval;
+        var min = Preferences.Default.Get(PreferenceKeys.Min_time, 30);
+        var max = Preferences.Default.Get(PreferenceKeys.Max_time, 181);
+        return Random.Shared.Next(min, max);
     }
 }
