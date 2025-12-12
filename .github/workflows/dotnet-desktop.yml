@@ -40,12 +40,6 @@ jobs:
         cache-dependency-path: |
           StatusSwift/StatusSwift.csproj
 
-    - name: Install Windows SDK
-      run: |
-        winget install --id=Microsoft.VisualStudio.2022.BuildTools --source winget `
-          --override "--add Microsoft.VisualStudio.Component.Windows10SDK.19041 --includeRecommended --quiet"
-
-
     - name: Install MAUI workload
       run: dotnet workload install maui-desktop wasm-tools
 
