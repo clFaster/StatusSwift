@@ -695,3 +695,7 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/rider,visualstudio,visualstudiocode,csharp,windows
 qodana.yaml
+.idea/.idea.StatusSwift/.idea/copilot.data.migration.agent.xml
+.idea/.idea.StatusSwift/.idea/copilot.data.migration.ask.xml
+.idea/.idea.StatusSwift/.idea/copilot.data.migration.ask2agent.xml
+.idea/.idea.StatusSwift/.idea/copilot.data.migration.edit.xml

@@ -32,7 +32,6 @@
     <!-- To generate MSIX as part of dotnet publish -->
     <PropertyGroup Condition="$(TargetFramework.Contains('-windows')) and '$(Configuration)' == 'Release'">
         <GenerateAppxPackageOnBuild>true</GenerateAppxPackageOnBuild>
-        <!-- <AppxPackageSigningEnabled>true</AppxPackageSigningEnabled> -->
     </PropertyGroup>
 
     <ItemGroup>
