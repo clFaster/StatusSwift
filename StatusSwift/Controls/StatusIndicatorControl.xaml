@@ -3,6 +3,7 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:behaviors="clr-namespace:StatusSwift.Behaviors"
+             xmlns:controls="clr-namespace:StatusSwift.Controls"
              x:Class="StatusSwift.Controls.StatusIndicatorControl"
              x:Name="statusIndicatorControl">
 
@@ -11,12 +12,14 @@
         HorizontalOptions="Center"
         FlowDirection="LeftToRight"
         Orientation="Horizontal"
-        Spacing="15">
+        Spacing="15"
+        BindingContext="{x:Reference statusIndicatorControl}"
+        x:DataType="controls:StatusIndicatorControl">
         <!-- Indicator -->
         <Border
             x:Name="StatusIndicator"
             Style="{StaticResource StatusIndicatorActive}"
-            IsVisible="{Binding IsActive, Source={x:Reference statusIndicatorControl}}">
+            IsVisible="{Binding IsActive}">
             <Border.Behaviors>
                 <behaviors:PulseAnimationBehavior />
             </Border.Behaviors>
@@ -24,9 +27,9 @@
         <Border
             x:Name="StatusIndicatorInactive"
             Style="{StaticResource StatusIndicator}"
-            IsVisible="{Binding IsActive, Source={x:Reference statusIndicatorControl}, Converter={StaticResource InvertedBoolConverter}}" />
+            IsVisible="{Binding IsActive, Converter={StaticResource InvertedBoolConverter}}" />
         <Label
             Style="{StaticResource SubHeadline}"
-            Text="{Binding StatusText, Source={x:Reference statusIndicatorControl}}" />
+            Text="{Binding StatusText}" />
     </StackLayout>
 </ContentView>

@@ -42,6 +42,8 @@ public static class MauiProgram
         services.AddSingleton<MainPage>();
         services.AddSingleton<MainViewModel>();
 
+        services.AddSingleton(TimeProvider.System);
+
         services.AddSingleton<IStatusSwiftService, StatusSwiftService>();
         services.AddTransient<IEventSimulator, EventSimulator>();
 

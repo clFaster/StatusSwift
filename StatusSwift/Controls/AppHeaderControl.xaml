@@ -2,12 +2,15 @@
 
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+          xmlns:controls="clr-namespace:StatusSwift.Controls"
              x:Class="StatusSwift.Controls.AppHeaderControl"
              x:Name="appHeaderControl">
-    <VerticalStackLayout HorizontalOptions="Center" Spacing="0" Margin="0,0,0,10">
+       <VerticalStackLayout HorizontalOptions="Center" Spacing="0" Margin="0,0,0,10"
+                BindingContext="{x:Reference appHeaderControl}"
+                x:DataType="controls:AppHeaderControl">
         <Label Style="{StaticResource Headline}"
-               Text="{Binding AppTitle, Source={x:Reference appHeaderControl}}" />
+                        Text="{Binding AppTitle}" />
         <Label Style="{StaticResource SubSubHeadline}"
-               Text="{Binding AppSubtitle, Source={x:Reference appHeaderControl}}" />
+                        Text="{Binding AppSubtitle}" />
     </VerticalStackLayout>
 </ContentView>

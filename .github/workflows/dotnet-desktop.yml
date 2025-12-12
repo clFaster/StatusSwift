@@ -23,7 +23,10 @@ jobs:
 
     env:
       ProjectName: StatusSwift.csproj
-      DotNetVersion: 8.0.x
+      DotNetVersion: 10.0.x
+      TargetFramework: net10.0-windows10.0.19041.0
+      RuntimeIdentifier: win-x64
+      NUGET_PACKAGES: ${{ github.workspace }}\.nuget\packages
 
     steps:
     - name: Checkout
@@ -33,13 +36,20 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '${{env.DotNetVersion}}'
+        cache: true
+        cache-dependency-path: |
+          StatusSwift/StatusSwift.csproj
 
     - name: Install MAUI workload
       run: dotnet workload install maui-desktop wasm-tools
 
+    - name: .NET - Restore
+      working-directory: './StatusSwift'
+      run: dotnet restore ${{env.ProjectName}} -r ${{env.RuntimeIdentifier}}
+
     - name: .NET - Publish
       working-directory: './StatusSwift'
-      run: dotnet publish ${{env.ProjectName}} -c Release -f net8.0-windows10.0.19041.0
+      run: dotnet publish ${{env.ProjectName}} -c Release -f ${{env.TargetFramework}} -r ${{env.RuntimeIdentifier}} --no-restore
 
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v4
