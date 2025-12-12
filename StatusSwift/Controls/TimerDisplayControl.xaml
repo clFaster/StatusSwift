@@ -2,12 +2,15 @@
 
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:StatusSwift.Controls"
              x:Class="StatusSwift.Controls.TimerDisplayControl"
              x:Name="timerDisplayControl">
     <VerticalStackLayout
-        HorizontalOptions="Center">
+        HorizontalOptions="Center"
+        BindingContext="{x:Reference timerDisplayControl}"
+        x:DataType="controls:TimerDisplayControl">
         <Label
-            Text="{Binding TimerLabel, Source={x:Reference timerDisplayControl}}" />
+            Text="{Binding TimerLabel}" />
 
         <Border
             StrokeShape="RoundRectangle 8,8,8,8"
@@ -18,7 +21,7 @@
             Margin="0,7,0,5">
             <Label
                 Style="{StaticResource TimerDisplayLabel}"
-                Text="{Binding ElapsedTime, Source={x:Reference timerDisplayControl}}" />
+                Text="{Binding ElapsedTime}" />
         </Border>
     </VerticalStackLayout>
 </ContentView>

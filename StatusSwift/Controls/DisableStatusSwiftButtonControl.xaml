@@ -2,11 +2,14 @@
 
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+         xmlns:controls="clr-namespace:StatusSwift.Controls"
              x:Class="StatusSwift.Controls.DisableStatusSwiftButtonControl"
              x:Name="DisableStatusSwiftButton">
     <Button
         Text="Disable StatusSwift"
-        Command="{Binding ButtonCommand, Source={x:Reference DisableStatusSwiftButton}}"
+    BindingContext="{x:Reference DisableStatusSwiftButton}"
+    x:DataType="controls:DisableStatusSwiftButtonControl"
+    Command="{Binding ButtonCommand}"
         WidthRequest="220"
         HeightRequest="60"
         BackgroundColor="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource SecondaryDark}}"

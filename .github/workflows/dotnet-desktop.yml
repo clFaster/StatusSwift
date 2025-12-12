@@ -45,11 +45,11 @@ jobs:
 
     - name: .NET - Restore
       working-directory: './StatusSwift'
-      run: dotnet restore ${{env.ProjectName}} -r ${{env.RuntimeIdentifier}} -p:PublishReadyToRun=true
+      run: dotnet restore ${{env.ProjectName}} -r ${{env.RuntimeIdentifier}}
 
     - name: .NET - Publish
       working-directory: './StatusSwift'
-      run: dotnet publish ${{env.ProjectName}} -c Release -f ${{env.TargetFramework}} -r ${{env.RuntimeIdentifier}} -p:PublishReadyToRun=true --no-restore
+      run: dotnet publish ${{env.ProjectName}} -c Release -f ${{env.TargetFramework}} -r ${{env.RuntimeIdentifier}} --no-restore
 
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v4
