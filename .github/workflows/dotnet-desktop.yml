@@ -52,6 +52,6 @@ jobs:
       run: dotnet publish ${{env.ProjectName}} -c Release -f ${{env.TargetFramework}} -r ${{env.RuntimeIdentifier}} --no-restore
 
     - name: Upload Build Artifacts
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v7
       with:
         path: .\**\*.msix
