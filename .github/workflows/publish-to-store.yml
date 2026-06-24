@@ -106,7 +106,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
 
     - name: Setup Microsoft Store Developer CLI
       uses: microsoft/setup-msstore-cli@v1
